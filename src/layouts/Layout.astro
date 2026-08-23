@@ -1,0 +1,76 @@
+---
+// src/layouts/Layout.astro
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CartDrawer from '../components/CartDrawer.astro';
+import ProductModal from '../components/ProductModal.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Joyería Briella | Joyas de Plata Ley 950 y Oro 18k en Perú", 
+  description = "Catálogo oficial de Joyería Briella. Pulseras, aretes, collares, anillos y piezas personalizadas con nombre en Plata Ley 950 y Oro 18k. Pedidos y compras directas por WhatsApp."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="Joyería Briella, joyas de plata 950, joyas de oro 18k, dijes con nombre, aretes mariposa plata, cadena cubana plata, joyas personalizadas Perú" />
+    <link rel="icon" type="image/png" href="assets/images/logo.png" />
+
+    <!-- Google Fonts: Cormorant Garamond, Playfair Display, Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="assets/images/hero-banner.jpg" />
+    <meta property="og:type" content="website" />
+  </head>
+  <body class="min-h-screen flex flex-col bg-briella-cream text-briella-charcoal">
+    
+    <!-- 1. Sticky Luxury Header -->
+    <Header />
+
+    <!-- 2. Main Content Slot -->
+    <main class="flex-grow">
+      <slot />
+    </main>
+
+    <!-- 3. Footer Component -->
+    <Footer />
+
+    <!-- 4. Global Modals & Utilities -->
+    <ProductModal />
+    <CartDrawer />
+    <FloatingWhatsApp />
+
+    <script is:inline>
+      // Header mobile toggle helper
+      const mobileBtn = document.getElementById('btnMobileToggle');
+      const mobileNav = document.getElementById('mobileNavPanel');
+      if (mobileBtn && mobileNav) {
+        mobileBtn.addEventListener('click', () => {
+          mobileNav.classList.toggle('hidden');
+        });
+        mobileNav.querySelectorAll('.mobile-nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            mobileNav.classList.add('hidden');
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,130 @@
+---
+// src/components/Header.astro
+---
+
+<!-- Top Announcement Bar (Baliq Style Clean Bar) -->
+<div class="bg-briella-charcoal text-[#EDE8DF] text-[11px] font-medium tracking-luxury uppercase py-2 px-4 text-center">
+  <div class="max-w-7xl mx-auto flex items-center justify-center gap-3">
+    <span>Envíos a todo el Perú</span>
+    <span class="text-briella-gold">&bull;</span>
+    <span>Plata Ley 950 &amp; Oro 18k</span>
+    <span class="hidden sm:inline text-briella-gold">&bull;</span>
+    <span class="hidden sm:inline">Atención Directa por WhatsApp</span>
+  </div>
+</div>
+
+<!-- Main Sticky Header (Logo Left | Search Center | Utilities Right) -->
+<header id="siteHeader" class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-briella-cream-dark transition-all duration-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Top Navigation Row -->
+    <div class="flex items-center justify-between h-20 gap-6">
+      
+      <!-- Left: Clean Brand Logo -->
+      <div class="flex items-center">
+        <a href="#" class="inline-flex items-center group" aria-label="Joyería Briella">
+          <img 
+            src="assets/images/logo-transparent.png" 
+            alt="Joyería Briella" 
+            class="h-7 sm:h-8 md:h-9 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+            width="170" 
+            height="36"
+          />
+        </a>
+      </div>
+
+      <!-- Center: Fine-line Search Bar -->
+      <div class="flex-1 max-w-lg hidden md:block">
+        <div class="relative w-full">
+          <input 
+            type="text" 
+            id="headerSearchInput" 
+            placeholder="Buscar aretes, collares, anillos, oro 18k..." 
+            class="w-full bg-briella-cream text-xs tracking-wider py-2.5 pl-10 pr-4 rounded-none border border-briella-cream-dark focus:border-briella-blue focus:bg-white transition-all outline-none"
+          />
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-briella-charcoal/50 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Right: Direct WhatsApp Link & Shopping Cart -->
+      <div class="flex items-center justify-end gap-3 sm:gap-6">
+        
+        <!-- Direct WhatsApp Link -->
+        <a 
+          href="https://wa.me/51923340617?text=¡Hola%20Joyería%20Briella!%20Quisiera%20consultar%20sobre%20su%20catálogo%20de%20joyas." 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="hidden sm:flex items-center gap-2 text-xs font-semibold tracking-wider text-briella-charcoal hover:text-briella-blue transition-colors"
+          title="WhatsApp Joyería Briella"
+        >
+          <svg class="w-4 h-4 text-briella-whatsapp" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.04 3.67C16.58 3.67 20.28 7.37 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15M16.57 14.45C16.32 14.32 15.1 13.72 14.87 13.64C14.64 13.55 14.48 13.51 14.31 13.76C14.15 14.01 13.67 14.57 13.52 14.73C13.38 14.9 13.23 14.92 12.98 14.8C12.73 14.67 11.93 14.41 10.98 13.57C10.24 12.91 9.74 12.1 9.6 11.85C9.45 11.6 9.58 11.47 9.71 11.34C9.82 11.23 9.96 11.05 10.09 10.91C10.21 10.76 10.26 10.66 10.34 10.5C10.42 10.33 10.38 10.19 10.32 10.07C10.26 9.94 9.77 8.74 9.56 8.25C9.36 7.76 9.16 7.83 9.01 7.82C8.87 7.81 8.71 7.81 8.54 7.81C8.38 7.81 8.11 7.87 7.88 8.12C7.65 8.37 7 8.98 7 10.21C7 11.44 7.9 12.63 8.02 12.79C8.15 12.96 9.78 15.47 12.28 16.55C12.87 16.81 13.33 16.96 13.69 17.07C14.29 17.26 14.83 17.23 15.26 17.17C15.74 17.1 16.74 16.57 16.95 15.99C17.15 15.41 17.15 14.92 17.09 14.8C17.03 14.7 16.82 14.57 16.57 14.45Z"/>
+          </svg>
+          <span class="tracking-widest uppercase text-[11px]">+51 923 340 617</span>
+        </a>
+
+        <!-- Fine-line Shopping Bag / Cart -->
+        <button 
+          id="btnCartTrigger" 
+          class="relative p-2 text-briella-charcoal hover:text-briella-blue transition-colors focus:outline-none"
+          aria-label="Ver carrito de compras"
+        >
+          <svg class="w-6 h-6 stroke-[1.25]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span 
+            id="cartBadgeCount" 
+            class="absolute top-1 right-0 w-4 h-4 bg-briella-blue text-white text-[10px] font-bold rounded-full flex items-center justify-center"
+          >0</span>
+        </button>
+
+        <!-- Mobile Menu Trigger -->
+        <button 
+          id="btnMobileToggle" 
+          class="md:hidden p-2 text-briella-charcoal focus:outline-none"
+          aria-label="Abrir menú"
+        >
+          <svg class="w-6 h-6 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Secondary Navigation (Baliq Style Uppercase Links) -->
+    <nav class="hidden md:flex items-center justify-center gap-8 py-2.5 border-t border-briella-cream-dark text-[11px] font-semibold tracking-luxury uppercase text-briella-charcoal/80">
+      <a href="#hero" class="hover:text-briella-blue transition-colors">Inicio</a>
+      <a href="#catalogo" class="hover:text-briella-blue transition-colors">Catálogo Completo</a>
+      <a href="#catalogo" data-nav-material="plata 950" class="hover:text-briella-blue transition-colors">Plata Ley 950</a>
+      <a href="#catalogo" data-nav-material="oro 18k" class="hover:text-briella-blue transition-colors">Oro 18k</a>
+      <a href="#catalogo" data-nav-category="aretes" class="hover:text-briella-blue transition-colors">Aretes</a>
+      <a href="#catalogo" data-nav-category="collares" class="hover:text-briella-blue transition-colors">Collares</a>
+      <a href="#catalogo" data-nav-category="pulseras" class="hover:text-briella-blue transition-colors">Pulseras</a>
+      <a href="#catalogo" data-nav-category="anillos" class="hover:text-briella-blue transition-colors">Anillos</a>
+      <a href="#personalizados" class="text-briella-blue hover:text-briella-blue-dark transition-colors font-bold">Personalizados</a>
+      <a href="#contacto" class="hover:text-briella-blue transition-colors">Contacto</a>
+    </nav>
+
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobileNavPanel" class="hidden md:hidden bg-white border-b border-briella-cream-dark px-6 py-5 shadow-lg">
+    <div class="flex flex-col gap-3 text-xs font-semibold uppercase tracking-luxury text-briella-charcoal">
+      <a href="#hero" class="py-2 border-b border-briella-cream-dark mobile-nav-link">Inicio</a>
+      <a href="#catalogo" class="py-2 border-b border-briella-cream-dark mobile-nav-link">Catálogo Completo</a>
+      <a href="#catalogo" data-nav-material="plata 950" class="py-2 border-b border-briella-cream-dark mobile-nav-link">Joyas en Plata 950</a>
+      <a href="#catalogo" data-nav-material="oro 18k" class="py-2 border-b border-briella-cream-dark mobile-nav-link">Joyas en Oro 18k</a>
+      <a href="#personalizados" class="py-2 border-b border-briella-cream-dark mobile-nav-link text-briella-blue">Piezas Personalizadas</a>
+      <a href="#contacto" class="py-2 mobile-nav-link">Contacto &amp; Horarios</a>
+    </div>
+  </div>
+</header>

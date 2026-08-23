@@ -1,0 +1,140 @@
+---
+// src/components/ProductCard.astro
+interface Props {
+  product: {
+    id: string;
+    nombre: string;
+    categoria: string;
+    material: string;
+    precio: number;
+    imagen: string;
+    descripcion_corta: string;
+    destacado?: boolean;
+    es_personalizable?: boolean;
+    badge?: string;
+  };
+}
+
+const { product } = Astro.props;
+const isGold = product.material.toLowerCase().includes("oro");
+const materialLabel = isGold ? "Oro 18k" : "Plata 950";
+---
+
+<article
+  class="product-card group bg-white border border-briella-cream-dark transition-all duration-200 hover:border-briella-blue hover:shadow-card flex flex-col justify-between"
+  data-id={product.id}
+  data-category={product.categoria}
+  data-material={product.material}
+  data-price={product.precio}
+  data-name={product.nombre}
+>
+  <!-- Media / Image Container -->
+  <div
+    class="relative w-full aspect-square bg-[#FAF8F5] overflow-hidden cursor-pointer product-open-modal"
+  >
+    <img
+      src={product.imagen}
+      alt={product.nombre}
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      loading="lazy"
+      width="300"
+      height="300"
+    />
+
+    <!-- Single Material Badge (Only 1 subtle tag) -->
+    <div class="absolute top-2.5 left-2.5 z-10 pointer-events-none">
+      <span
+        class={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 border ${isGold ? "bg-briella-gold text-white border-briella-gold" : "bg-white text-briella-blue border-briella-cream-dark"}`}
+      >
+        {materialLabel}
+      </span>
+    </div>
+
+    <!-- Fine-line Quick View Hover Overlay -->
+    <button
+      type="button"
+      class="hidden md:flex items-center gap-1.5 absolute bottom-2.5 left-1/2 -translate-x-1/2 bg-white/95 text-briella-charcoal text-[11px] font-bold uppercase tracking-luxury py-1.5 px-3 border border-briella-cream-dark shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
+      aria-label={`Ver detalles de ${product.nombre}`}
+    >
+      <svg
+        class="w-3.5 h-3.5 stroke-[1.5]"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+      >
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+      </svg>
+      <span>Ver Detalles</span>
+    </button>
+  </div>
+
+  <!-- Body Content -->
+  <div class="p-3.5 sm:p-4 flex flex-col flex-grow justify-between">
+    <div>
+      <span
+        class="text-[10px] font-bold uppercase tracking-luxury text-briella-blue block mb-1"
+      >
+        {product.categoria}
+      </span>
+
+      <h3
+        class="font-serif text-base sm:text-lg font-medium text-briella-charcoal line-clamp-2 cursor-pointer hover:text-briella-blue transition-colors product-open-modal leading-snug mb-1"
+      >
+        {product.nombre}
+      </h3>
+
+      <p
+        class="text-xs text-briella-charcoal/60 line-clamp-2 mb-3 leading-relaxed hidden sm:block"
+      >
+        {product.descripcion_corta}
+      </p>
+    </div>
+
+    <div>
+      <!-- Price Row -->
+      <div class="flex items-baseline gap-1 my-2">
+        <span class="text-xs font-bold text-briella-blue">S/</span>
+        <span
+          class="text-lg sm:text-xl font-bold font-sans text-briella-charcoal"
+        >
+          {product.precio.toFixed(2)}
+        </span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div
+        class="grid grid-cols-[1fr_auto] gap-2 pt-2 border-t border-briella-cream-dark"
+      >
+        <!-- Direct Buy Trigger (Opens Buy Modal with Customer Info) -->
+        <button
+          type="button"
+          class="btn-buy-now product-open-modal inline-flex items-center justify-center gap-1.5 bg-briella-blue text-white hover:bg-briella-blue-dark text-xs font-bold uppercase tracking-wider py-2 px-3 transition-colors"
+          data-product-json={JSON.stringify(product)}
+        >
+          <span>Comprar</span>
+        </button>
+
+        <!-- Add to Cart (Fine-line Shopping Bag / Cart Icon) -->
+        <button
+          type="button"
+          class="btn-add-to-cart inline-flex items-center justify-center w-9 h-9 bg-briella-cream hover:bg-briella-cream-dark text-briella-charcoal border border-briella-cream-dark transition-colors"
+          data-product-json={JSON.stringify(product)}
+          aria-label={`Añadir ${product.nombre} a la bolsa`}
+          title="Añadir a la bolsa de compras"
+        >
+          <svg
+            class="w-4 h-4 stroke-[1.5]"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</article>

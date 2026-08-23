@@ -1,0 +1,220 @@
+[
+  {
+    "id": "personalizado-01",
+    "nombre": "Collar con Nombre Calado \"Neyh\"",
+    "categoria": "personalizados",
+    "material": "plata 950",
+    "precio": 149.00,
+    "imagen": "assets/images/personalizado-01.jpg",
+    "descripcion_corta": "Collar personalizado con nombre calado en tipografía cursiva fina, incluye cadena veneciana de plata ley 950.",
+    "destacado": true,
+    "es_personalizable": true,
+    "badge": "Plata Ley 950",
+    "detalles": [
+      "Plata auténtica Ley 950 garantizada",
+      "Cadena de 45cm o 50cm a elección",
+      "Personaliza con cualquier nombre o palabra",
+      "Tiempo de confección artesanal: 2 a 3 días hábiles",
+      "Incluye estuche de regalo Briella y paño limpiador"
+    ]
+  },
+  {
+    "id": "aretes-01",
+    "nombre": "Aretes Mariposa Calada Filigrana",
+    "categoria": "aretes",
+    "material": "plata 950",
+    "precio": 79.00,
+    "imagen": "assets/images/aretes-01.jpg",
+    "descripcion_corta": "Aretes en forma de mariposa con acabado en filigrana brillante y poste hipoalergénico.",
+    "destacado": true,
+    "es_personalizable": false,
+    "badge": "Plata Ley 950",
+    "detalles": [
+      "Plata Ley 950 maciza pulida",
+      "Diseño ultraligero y cómodo para uso diario",
+      "Broche de mariposa a presión seguro",
+      "Resistente al agua y al uso continuo"
+    ]
+  },
+  {
+    "id": "collar-01",
+    "nombre": "Cadena Cubana Eslabón Grueso 50cm",
+    "categoria": "collares",
+    "material": "plata 950",
+    "precio": 249.00,
+    "imagen": "assets/images/collar-01.jpg",
+    "descripcion_corta": "Cadena estilo cubana de eslabones pulidos diamantados de alto brillo y broche reforzado.",
+    "destacado": true,
+    "es_personalizable": false,
+    "badge": "Plata Ley 950",
+    "detalles": [
+      "Plata 950 pura con acabado espejo",
+      "Largo: 50 cm | Grosor: 5 mm",
+      "Broche tipo mosquetón italiano reforzado",
+      "Sello de autenticidad 950 grabado"
+    ]
+  },
+  {
+    "id": "anillo-01",
+    "nombre": "Anillo Ajustable Silueta Perrito & Huellitas",
+    "categoria": "anillos",
+    "material": "plata 950",
+    "precio": 85.00,
+    "imagen": "assets/images/anillo-01.jpg",
+    "descripcion_corta": "Tierno anillo envolvente con silueta de perrito y huellas grabadas. Ajustable a cualquier talla.",
+    "destacado": true,
+    "es_personalizable": true,
+    "badge": "Plata Ley 950",
+    "detalles": [
+      "Plata Ley 950 de alta resistencia",
+      "Talla ajustable libre (se adapta de talla 5 a 9)",
+      "Posibilidad de grabar inicial o nombre en el interior",
+      "Acabado pulido brillante"
+    ]
+  },
+  {
+    "id": "pulsera-01",
+    "nombre": "Pulsera Bolitas & Eslabón Fino",
+    "categoria": "pulseras",
+    "material": "plata 950",
+    "precio": 119.00,
+    "imagen": "assets/images/pulsera-01.jpg",
+    "descripcion_corta": "Elegante pulsera combinada de esferas pulidas y eslabones de plata 950 para un look minimalista.",
+    "destacado": false,
+    "es_personalizable": false,
+    "badge": "Plata Ley 950",
+    "detalles": [
+      "Plata Ley 950 certificada",
+      "Largo estándar: 18 cm + extensión de 2 cm",
+      "Diseño versátil ideal para combinar con dijes",
+      "Acabado brillante inalterable"
+    ]
+  },
+  {
+    "id": "oro-01",
+    "nombre": "Anillo Solitario Compromiso 18k",
+    "categoria": "anillos",
+    "material": "oro 18k",
+    "precio": 680.00,
+    "imagen": "assets/images/oro-01.jpg",
+    "descripcion_corta": "Fina sortija en Oro Amarillo 18k con gema central corte brillante montada en 6 finas uñas.",
+    "destacado": true,
+    "es_personalizable": true,
+    "badge": "Oro 18k",
+    "detalles": [
+      "Oro Nacional auténtico 18 kilates (750)",
+      "Circonia suiza AAA corte diamante de máximo brillo",
+      "Grabado interior de nombres/fecha de cortesía",
+      "Certificado de autenticidad y garantía de metal de por vida",
+      "Estuche premium de pana fina"
+    ]
+  },
+  {
+    "id": "oro-02",
+    "nombre": "Collar Dije Corazón Micropavé 18k",
+    "categoria": "collares",
+    "material": "oro 18k",
+    "precio": 520.00,
+    "imagen": "assets/images/oro-02.jpg",
+    "descripcion_corta": "Dije de corazón engastado con microcirconias sobre oro amarillo 18k con cadena delicada.",
+    "destacado": true,
+    "es_personalizable": false,
+    "badge": "Oro 18k",
+    "detalles": [
+      "Oro amarillo macizo 18k garantizado",
+      "Microengaste pavé de precisión",
+      "Cadena fina de 45 cm incluida",
+      "Elegancia y brillo atemporal"
+    ]
+  },
+  {
+    "id": "pulsera-02",
+    "nombre": "Tobillera Veneciana Luna & Estrella",
+    "categoria": "pulseras",
+    "material": "plata 950",
+    "precio": 89.00,
+    "imagen": "assets/images/pulsera-02.jpg",
+    "descripcion_corta": "Tobillera fina de plata 950 con dijes colgantes de luna creciente y estrella diamantada.",
+    "destacado": false,
+    "es_personalizable": false,
+    "badge": "Plata Ley 950",
+    "detalles": [
+      "Plata Ley 950 resistente a la humedad",
+      "Largo: 22 cm + 4 cm de cadena regulable",
+      "Dijes pulidos de alto reflejo",
+      "Broche de seguridad reforzado"
+    ]
+  },
+  {
+    "id": "aretes-02",
+    "nombre": "Aretes Huggies Mariposa Colgante Pavé",
+    "categoria": "aretes",
+    "material": "plata 950",
+    "precio": 95.00,
+    "imagen": "assets/images/aretes-02.jpg",
+    "descripcion_corta": "Argollitas huggies de plata 950 con mariposas colgantes microengastadas con circonias.",
+    "destacado": false,
+    "es_personalizable": false,
+    "badge": "Plata Ley 950",
+    "detalles": [
+      "Plata Ley 950 con baño de rodio para brillo perpetuo",
+      "Microcirconias transparentes corte brillante",
+      "Cierre tipo clic seguro y cómodo",
+      "Diámetro huggie: 12 mm"
+    ]
+  },
+  {
+    "id": "anillo-02",
+    "nombre": "Anillo Gato Minimalista & Circonia",
+    "categoria": "anillos",
+    "material": "plata 950",
+    "precio": 89.00,
+    "imagen": "assets/images/anillo-02.jpg",
+    "descripcion_corta": "Diseño sutil con orejitas de gato y punto de luz central en circonia blanca pulida.",
+    "destacado": false,
+    "es_personalizable": true,
+    "badge": "Plata Ley 950",
+    "detalles": [
+      "Plata Ley 950 de tacto suave",
+      "Circonia natural engastada",
+      "Disponible en todas las tallas o ajustable",
+      "Grabado interno disponible"
+    ]
+  },
+  {
+    "id": "oro-03",
+    "nombre": "Aretes Aros Clásicos Pulidos 14mm",
+    "categoria": "aretes",
+    "material": "oro 18k",
+    "precio": 390.00,
+    "imagen": "assets/images/oro-03.jpg",
+    "descripcion_corta": "Argollas clásicas en oro 18k con tubo grueso pulido y cierre invisible de presión.",
+    "destacado": false,
+    "es_personalizable": false,
+    "badge": "Oro 18k",
+    "detalles": [
+      "Oro auténtico 18 kilates (750)",
+      "Diámetro: 14 mm | Ancho de tubo: 2.5 mm",
+      "Acabado liso italiano de máximo confort",
+      "Hipoalergénico 100%"
+    ]
+  },
+  {
+    "id": "collar-02",
+    "nombre": "Gargantilla Fígaro con Dije Candado",
+    "categoria": "collares",
+    "material": "plata 950",
+    "precio": 179.00,
+    "imagen": "assets/images/collar-02.jpg",
+    "descripcion_corta": "Cadena fígaro 3x1 en plata 950 complementada con un dije de candado liso personalizable.",
+    "destacado": false,
+    "es_personalizable": true,
+    "badge": "Plata Ley 950",
+    "detalles": [
+      "Plata Ley 950 maciza",
+      "Largo: 45 cm",
+      "Dije candado pulido apto para grabado de iniciales o fecha",
+      "Estilo contemporáneo de alta tendencia"
+    ]
+  }
+]

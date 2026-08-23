@@ -1,0 +1,315 @@
+---
+// src/components/Catalog.astro
+import products from '../data/products.json';
+import ProductCard from './ProductCard.astro';
+---
+
+<section id="catalogo" class="py-16 md:py-24 bg-briella-cream border-b border-briella-cream-dark">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header (Baliq Minimalist Style) -->
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <span class="text-[11px] font-bold uppercase tracking-widest text-briella-blue block mb-2">
+        Colección Exclusiva
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-serif font-medium text-briella-charcoal mb-3">
+        Catálogo de Joyas
+      </h2>
+      <div class="w-12 h-px bg-briella-blue mx-auto mb-4"></div>
+      <p class="text-xs sm:text-sm text-briella-charcoal/70">
+        Piezas en Plata Ley 950 y Oro 18k. Selecciona una categoría o consulta disponibilidad directa por WhatsApp.
+      </p>
+    </div>
+
+    <!-- Filter Toolbar -->
+    <div class="bg-white border border-briella-cream-dark p-4 sm:p-6 mb-8 shadow-sm">
+      
+      <!-- Search Bar -->
+      <div class="relative max-w-md mx-auto mb-6">
+        <input 
+          type="text" 
+          id="catalogSearchInput" 
+          placeholder="Buscar aretes, mariposa, cubana, oro 18k, anillos..." 
+          class="w-full bg-briella-cream text-xs sm:text-sm py-2.5 pl-10 pr-4 border border-briella-cream-dark focus:border-briella-blue focus:bg-white transition-all outline-none"
+        />
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-briella-charcoal/50 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+
+      <!-- Categories Filter Tabs (Uppercase Clean Links) -->
+      <div class="flex items-center justify-start md:justify-center gap-2 overflow-x-auto pb-2 scrollbar-none" id="categoryChips">
+        <button 
+          class="filter-category-btn active px-4 py-2 text-[11px] font-bold uppercase tracking-luxury border transition-all whitespace-nowrap bg-briella-blue text-white border-briella-blue"
+          data-category="todos"
+        >
+          Todos
+        </button>
+        <button 
+          class="filter-category-btn px-4 py-2 text-[11px] font-bold uppercase tracking-luxury border border-briella-cream-dark bg-white text-briella-charcoal/80 hover:border-briella-blue hover:text-briella-blue transition-all whitespace-nowrap"
+          data-category="aretes"
+        >
+          Aretes
+        </button>
+        <button 
+          class="filter-category-btn px-4 py-2 text-[11px] font-bold uppercase tracking-luxury border border-briella-cream-dark bg-white text-briella-charcoal/80 hover:border-briella-blue hover:text-briella-blue transition-all whitespace-nowrap"
+          data-category="collares"
+        >
+          Collares
+        </button>
+        <button 
+          class="filter-category-btn px-4 py-2 text-[11px] font-bold uppercase tracking-luxury border border-briella-cream-dark bg-white text-briella-charcoal/80 hover:border-briella-blue hover:text-briella-blue transition-all whitespace-nowrap"
+          data-category="pulseras"
+        >
+          Pulseras
+        </button>
+        <button 
+          class="filter-category-btn px-4 py-2 text-[11px] font-bold uppercase tracking-luxury border border-briella-cream-dark bg-white text-briella-charcoal/80 hover:border-briella-blue hover:text-briella-blue transition-all whitespace-nowrap"
+          data-category="anillos"
+        >
+          Anillos
+        </button>
+        <button 
+          class="filter-category-btn px-4 py-2 text-[11px] font-bold uppercase tracking-luxury border border-briella-cream-dark bg-white text-briella-charcoal/80 hover:border-briella-blue hover:text-briella-blue transition-all whitespace-nowrap"
+          data-category="personalizados"
+        >
+          Personalizados
+        </button>
+      </div>
+
+      <!-- Secondary Toolbar (Material Filters & Sorter) -->
+      <div class="flex flex-wrap items-center justify-between gap-4 pt-4 mt-4 border-t border-briella-cream-dark text-xs">
+        
+        <!-- Material Selectors -->
+        <div class="flex items-center gap-2">
+          <span class="text-[10px] font-bold uppercase tracking-luxury text-briella-charcoal/60">Material:</span>
+          <button class="filter-material-btn active px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider border border-briella-blue bg-briella-blue text-white" data-material="todos">Todos</button>
+          <button class="filter-material-btn px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider border border-briella-cream-dark bg-white text-briella-charcoal hover:border-briella-blue" data-material="plata 950">Plata 950</button>
+          <button class="filter-material-btn px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider border border-briella-cream-dark bg-white text-briella-charcoal hover:border-briella-gold" data-material="oro 18k">Oro 18k</button>
+        </div>
+
+        <!-- Counter & Sorter -->
+        <div class="flex items-center gap-4">
+          <span id="catalogCounterText" class="text-xs text-briella-charcoal/60 font-medium">
+            Mostrando {products.length} joyas
+          </span>
+          <div class="flex items-center gap-1.5">
+            <label for="catalogSorter" class="text-[10px] font-bold uppercase tracking-luxury text-briella-charcoal/60">Ordenar:</label>
+            <select id="catalogSorter" class="bg-briella-cream text-xs py-1 px-2 border border-briella-cream-dark outline-none cursor-pointer">
+              <option value="default">Recomendados</option>
+              <option value="price-asc">Precio: Menor a Mayor</option>
+              <option value="price-desc">Precio: Mayor a Menor</option>
+              <option value="name-asc">Nombre A - Z</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Product Grid -->
+    <div id="catalogGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+      {products.map((product) => (
+        <ProductCard product={product} />
+      ))}
+    </div>
+
+    <!-- Empty State -->
+    <div id="catalogEmptyState" class="hidden text-center py-16 bg-white border border-dashed border-briella-cream-dark p-8">
+      <svg class="w-10 h-10 mx-auto text-briella-blue/50 mb-3 stroke-[1.25]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+      </svg>
+      <h3 class="font-serif text-xl font-medium text-briella-charcoal mb-1">No se encontraron joyas</h3>
+      <p class="text-xs text-briella-charcoal/60 max-w-sm mx-auto mb-4">Intenta con otro término de búsqueda o restablece los filtros.</p>
+      <button id="btnResetFilters" class="px-5 py-2 bg-briella-blue text-white text-xs font-bold uppercase tracking-luxury">
+        Ver Todas las Joyas
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- Client Script for Interactive Instant Filtering -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    let currentCategory = 'todos';
+    let currentMaterial = 'todos';
+    let currentSearch = '';
+    let currentSort = 'default';
+
+    const cards = Array.from(document.querySelectorAll('.product-card'));
+    const grid = document.getElementById('catalogGrid');
+    const emptyState = document.getElementById('catalogEmptyState');
+    const counterText = document.getElementById('catalogCounterText');
+    const searchInput = document.getElementById('catalogSearchInput');
+    const headerSearchInput = document.getElementById('headerSearchInput');
+    const sorter = document.getElementById('catalogSorter');
+    const resetBtn = document.getElementById('btnResetFilters');
+
+    const categoryBtns = document.querySelectorAll('.filter-category-btn');
+    const materialBtns = document.querySelectorAll('.filter-material-btn');
+
+    function applyFilters() {
+      let visibleCount = 0;
+      const filteredCards = [];
+
+      cards.forEach(card => {
+        const cat = card.dataset.category || '';
+        const mat = card.dataset.material || '';
+        const name = (card.dataset.name || '').toLowerCase();
+        const price = parseFloat(card.dataset.price || '0');
+
+        const matchCat = (currentCategory === 'todos') || (cat.toLowerCase() === currentCategory.toLowerCase());
+        const matchMat = (currentMaterial === 'todos') || (mat.toLowerCase().includes(currentMaterial.toLowerCase()));
+        const matchSearch = !currentSearch || name.includes(currentSearch.toLowerCase());
+
+        if (matchCat && matchMat && matchSearch) {
+          card.style.display = '';
+          visibleCount++;
+          filteredCards.push({ element: card, price, name });
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Sorting
+      if (currentSort === 'price-asc') {
+        filteredCards.sort((a, b) => a.price - b.price);
+      } else if (currentSort === 'price-desc') {
+        filteredCards.sort((a, b) => b.price - a.price);
+      } else if (currentSort === 'name-asc') {
+        filteredCards.sort((a, b) => a.name.localeCompare(b.name));
+      }
+
+      if (grid) {
+        filteredCards.forEach(item => grid.appendChild(item.element));
+      }
+
+      // Counter & Empty State
+      if (counterText) {
+        counterText.textContent = `Mostrando ${visibleCount} joya${visibleCount === 1 ? '' : 's'}`;
+      }
+
+      if (emptyState && grid) {
+        if (visibleCount === 0) {
+          emptyState.classList.remove('hidden');
+          grid.classList.add('hidden');
+        } else {
+          emptyState.classList.add('hidden');
+          grid.classList.remove('hidden');
+        }
+      }
+    }
+
+    // Category click
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        categoryBtns.forEach(b => {
+          b.classList.remove('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
+          b.classList.add('bg-white', 'text-briella-charcoal/80', 'border-briella-cream-dark');
+        });
+        btn.classList.add('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
+        btn.classList.remove('bg-white', 'text-briella-charcoal/80', 'border-briella-cream-dark');
+        currentCategory = btn.dataset.category || 'todos';
+        applyFilters();
+      });
+    });
+
+    // Material click
+    materialBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        materialBtns.forEach(b => {
+          b.classList.remove('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
+          b.classList.add('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
+        });
+        btn.classList.add('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
+        btn.classList.remove('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
+        currentMaterial = btn.dataset.material || 'todos';
+        applyFilters();
+      });
+    });
+
+    // Search inputs
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        currentSearch = e.target.value.trim();
+        applyFilters();
+      });
+    }
+
+    if (headerSearchInput) {
+      headerSearchInput.addEventListener('input', (e) => {
+        currentSearch = e.target.value.trim();
+        if (searchInput) searchInput.value = currentSearch;
+        const catalogEl = document.getElementById('catalogo');
+        if (catalogEl && window.scrollY < 200) {
+          catalogEl.scrollIntoView({ behavior: 'smooth' });
+        }
+        applyFilters();
+      });
+    }
+
+    // Sorter
+    if (sorter) {
+      sorter.addEventListener('change', (e) => {
+        currentSort = e.target.value;
+        applyFilters();
+      });
+    }
+
+    // Reset button
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        currentCategory = 'todos';
+        currentMaterial = 'todos';
+        currentSearch = '';
+        currentSort = 'default';
+        if (searchInput) searchInput.value = '';
+        if (headerSearchInput) headerSearchInput.value = '';
+        if (sorter) sorter.value = 'default';
+        
+        categoryBtns.forEach((b, i) => {
+          if (i === 0) {
+            b.classList.add('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
+            b.classList.remove('bg-white', 'text-briella-charcoal/80', 'border-briella-cream-dark');
+          } else {
+            b.classList.remove('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
+            b.classList.add('bg-white', 'text-briella-charcoal/80', 'border-briella-cream-dark');
+          }
+        });
+
+        materialBtns.forEach((b, i) => {
+          if (i === 0) {
+            b.classList.add('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
+            b.classList.remove('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
+          } else {
+            b.classList.remove('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
+            b.classList.add('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
+          }
+        });
+
+        applyFilters();
+      });
+    }
+
+    // External Nav links hook
+    document.querySelectorAll('[data-nav-category]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const cat = link.dataset.navCategory;
+        const targetBtn = document.querySelector(`.filter-category-btn[data-category="${cat}"]`);
+        if (targetBtn) targetBtn.click();
+      });
+    });
+
+    document.querySelectorAll('[data-nav-material]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const mat = link.dataset.navMaterial;
+        const targetBtn = document.querySelector(`.filter-material-btn[data-material="${mat}"]`);
+        if (targetBtn) targetBtn.click();
+      });
+    });
+
+  });
+</script>
