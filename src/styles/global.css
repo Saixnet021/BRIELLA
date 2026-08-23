@@ -27,11 +27,11 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #F5F4EC;
+  background: #F7F6F0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D1CCBD;
+  background: #D8D3C5;
   border-radius: 9999px;
 }
 
@@ -54,3 +54,40 @@
     transform: translateY(0);
   }
 }
+
+/* Bottom sheet slide-up animation */
+.sheet-slide-up {
+  animation: sheetSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes sheetSlide {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Hide scrollbar for category pills on mobile */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Individual Product Card Reveal Animation (Per-Card Transition) */
+.card-reveal-item {
+  opacity: 0;
+  transform: translateY(22px) scale(0.97);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.card-reveal-item.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+

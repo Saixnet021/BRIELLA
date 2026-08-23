@@ -5,6 +5,9 @@ import Footer from '../components/Footer.astro';
 import CartDrawer from '../components/CartDrawer.astro';
 import ProductModal from '../components/ProductModal.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+import FloatingMobileBar from '../components/FloatingMobileBar.astro';
+import MobileMenuDrawer from '../components/MobileMenuDrawer.astro';
+import 'aos/dist/aos.css';
 import '../styles/global.css';
 
 interface Props {
@@ -39,7 +42,7 @@ const {
     <meta property="og:image" content="assets/images/hero-banner.jpg" />
     <meta property="og:type" content="website" />
   </head>
-  <body class="min-h-screen flex flex-col bg-briella-cream text-briella-charcoal">
+  <body class="min-h-screen flex flex-col bg-briella-cream text-briella-charcoal selection:bg-briella-blue selection:text-white">
     
     <!-- 1. Sticky Luxury Header -->
     <Header />
@@ -55,22 +58,22 @@ const {
     <!-- 4. Global Modals & Utilities -->
     <ProductModal />
     <CartDrawer />
+    <MobileMenuDrawer />
     <FloatingWhatsApp />
+    <FloatingMobileBar />
 
-    <script is:inline>
-      // Header mobile toggle helper
-      const mobileBtn = document.getElementById('btnMobileToggle');
-      const mobileNav = document.getElementById('mobileNavPanel');
-      if (mobileBtn && mobileNav) {
-        mobileBtn.addEventListener('click', () => {
-          mobileNav.classList.toggle('hidden');
+    <!-- AOS (Animate on Scroll) Initialization -->
+    <script>
+      import AOS from 'aos';
+      document.addEventListener('DOMContentLoaded', () => {
+        AOS.init({
+          duration: 650,
+          easing: 'ease-out-cubic',
+          once: true,
+          offset: 40,
         });
-        mobileNav.querySelectorAll('.mobile-nav-link').forEach(link => {
-          link.addEventListener('click', () => {
-            mobileNav.classList.add('hidden');
-          });
-        });
-      }
+      });
     </script>
+
   </body>
 </html>

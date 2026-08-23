@@ -2,101 +2,150 @@
 // src/components/Catalog.astro
 import products from '../data/products.json';
 import ProductCard from './ProductCard.astro';
+
+const categories = [
+  { id: 'todos', name: 'Todos' },
+  { id: 'aretes', name: 'Aretes' },
+  { id: 'collares', name: 'Collares' },
+  { id: 'pulseras', name: 'Pulseras' },
+  { id: 'anillos', name: 'Anillos' },
+  { id: 'personalizados', name: 'Personalizados' }
+];
+
+const materials = [
+  { id: 'todos', name: 'Todos los Materiales' },
+  { id: 'plata 950', name: 'Plata Ley 950' },
+  { id: 'oro 18k', name: 'Oro 18k' }
+];
 ---
 
-<section id="catalogo" class="py-16 md:py-24 bg-briella-cream border-b border-briella-cream-dark">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section id="catalogo" class="py-10 sm:py-16 md:py-24 bg-briella-cream border-b border-briella-cream-dark">
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
     
-    <!-- Section Header (Baliq Minimalist Style) -->
-    <div class="text-center max-w-2xl mx-auto mb-10">
-      <span class="text-[11px] font-bold uppercase tracking-widest text-briella-blue block mb-2">
+    <!-- Dynamic Category & Section Header -->
+    <div class="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
+      <span class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-briella-blue block mb-1">
         Colección Exclusiva
       </span>
-      <h2 class="text-3xl sm:text-4xl font-serif font-medium text-briella-charcoal mb-3">
+      <h2 id="catalogDynamicTitle" class="text-2xl sm:text-4xl md:text-5xl font-serif font-medium text-briella-charcoal mb-2 tracking-tight">
         Catálogo de Joyas
       </h2>
-      <div class="w-12 h-px bg-briella-blue mx-auto mb-4"></div>
-      <p class="text-xs sm:text-sm text-briella-charcoal/70">
-        Piezas en Plata Ley 950 y Oro 18k. Selecciona una categoría o consulta disponibilidad directa por WhatsApp.
+      <div class="w-12 h-0.5 bg-briella-blue/40 rounded-full mx-auto mb-3"></div>
+      <p class="text-xs sm:text-sm text-briella-charcoal/70 px-4">
+        Plata Ley 950 auténtica y Oro 18k nacional. Pedidos directos con entrega a domicilio.
       </p>
     </div>
 
-    <!-- Filter Toolbar -->
-    <div class="bg-white border border-briella-cream-dark p-4 sm:p-6 mb-8 shadow-sm">
+    <!-- Filter & Sort Control Bar (Modern Rounded Design matching Mobile Screenshot) -->
+    <div class="bg-white rounded-2xl sm:rounded-3xl border border-briella-cream-dark p-3 sm:p-5 mb-6 shadow-sm">
       
-      <!-- Search Bar -->
-      <div class="relative max-w-md mx-auto mb-6">
+      <!-- Desktop Search Bar -->
+      <div class="relative max-w-md mx-auto mb-4 hidden md:block">
         <input 
           type="text" 
           id="catalogSearchInput" 
-          placeholder="Buscar aretes, mariposa, cubana, oro 18k, anillos..." 
-          class="w-full bg-briella-cream text-xs sm:text-sm py-2.5 pl-10 pr-4 border border-briella-cream-dark focus:border-briella-blue focus:bg-white transition-all outline-none"
+          placeholder="Buscar aretes, collares, mariposa, cubana, oro 18k..." 
+          class="w-full bg-briella-cream text-xs py-2.5 pl-10 pr-4 rounded-full border border-briella-cream-dark focus:border-briella-blue focus:bg-white transition-all outline-none"
         />
-        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-briella-charcoal/50 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-briella-charcoal/50 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
       </div>
 
-      <!-- Categories Filter Tabs (Uppercase Clean Links) -->
-      <div class="flex items-center justify-start md:justify-center gap-2 overflow-x-auto pb-2 scrollbar-none" id="categoryChips">
+      <!-- Mobile Control Bar (Exact Reference Layout: [FILTRAR] | MOSTRANDO 1-X DE Y | [⇅]) -->
+      <div class="flex items-center justify-between gap-2 md:hidden">
+        
+        <!-- Filter Button -->
         <button 
-          class="filter-category-btn active px-4 py-2 text-[11px] font-bold uppercase tracking-luxury border transition-all whitespace-nowrap bg-briella-blue text-white border-briella-blue"
-          data-category="todos"
+          id="btnOpenMobileFilters" 
+          type="button"
+          class="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-briella-cream-dark hover:border-briella-blue active:scale-95 text-xs font-bold uppercase tracking-wider text-briella-charcoal shadow-sm transition-all"
+          aria-label="Abrir filtros de productos"
         >
-          Todos
+          <svg class="w-4 h-4 stroke-[2]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="4" y1="21" x2="4" y2="14"></line>
+            <line x1="4" y1="10" x2="4" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12" y2="3"></line>
+            <line x1="20" y1="21" x2="20" y2="16"></line>
+            <line x1="20" y1="12" x2="20" y2="3"></line>
+            <line x1="1" y1="14" x2="7" y2="14"></line>
+            <line x1="9" y1="8" x2="15" y2="8"></line>
+            <line x1="17" y1="16" x2="23" y2="16"></line>
+          </svg>
+          <span>Filtrar</span>
+          <span id="mobileActiveFilterBadge" class="hidden w-2 h-2 rounded-full bg-briella-blue"></span>
         </button>
-        <button 
-          class="filter-category-btn px-4 py-2 text-[11px] font-bold uppercase tracking-luxury border border-briella-cream-dark bg-white text-briella-charcoal/80 hover:border-briella-blue hover:text-briella-blue transition-all whitespace-nowrap"
-          data-category="aretes"
-        >
-          Aretes
-        </button>
-        <button 
-          class="filter-category-btn px-4 py-2 text-[11px] font-bold uppercase tracking-luxury border border-briella-cream-dark bg-white text-briella-charcoal/80 hover:border-briella-blue hover:text-briella-blue transition-all whitespace-nowrap"
-          data-category="collares"
-        >
-          Collares
-        </button>
-        <button 
-          class="filter-category-btn px-4 py-2 text-[11px] font-bold uppercase tracking-luxury border border-briella-cream-dark bg-white text-briella-charcoal/80 hover:border-briella-blue hover:text-briella-blue transition-all whitespace-nowrap"
-          data-category="pulseras"
-        >
-          Pulseras
-        </button>
-        <button 
-          class="filter-category-btn px-4 py-2 text-[11px] font-bold uppercase tracking-luxury border border-briella-cream-dark bg-white text-briella-charcoal/80 hover:border-briella-blue hover:text-briella-blue transition-all whitespace-nowrap"
-          data-category="anillos"
-        >
-          Anillos
-        </button>
-        <button 
-          class="filter-category-btn px-4 py-2 text-[11px] font-bold uppercase tracking-luxury border border-briella-cream-dark bg-white text-briella-charcoal/80 hover:border-briella-blue hover:text-briella-blue transition-all whitespace-nowrap"
-          data-category="personalizados"
-        >
-          Personalizados
-        </button>
+
+        <!-- Center Counter Text (Mobile Screenshot Style) -->
+        <div class="flex-1 text-center px-1">
+          <span id="catalogMobileCounterText" class="text-[10px] font-bold uppercase tracking-wider text-briella-charcoal/70 block">
+            Mostrando 1–{products.length} de {products.length}
+          </span>
+          <span id="catalogActiveTagText" class="text-[9px] text-briella-blue font-semibold block truncate">Todas las Joyas</span>
+        </div>
+
+        <!-- Sort Trigger Button -->
+        <div class="relative">
+          <button 
+            id="btnOpenMobileSort" 
+            type="button" 
+            class="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-briella-cream-dark hover:border-briella-blue active:scale-95 text-briella-charcoal shadow-sm transition-all"
+            aria-label="Ordenar productos"
+          >
+            <svg class="w-4 h-4 stroke-[2]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M7 15l5 5 5-5"></path>
+              <path d="M7 9l5-5 5 5"></path>
+            </svg>
+          </button>
+
+          <!-- Mobile Sort Dropdown Popover -->
+          <div id="mobileSortDropdown" class="hidden absolute right-0 top-11 z-30 w-48 bg-white rounded-2xl border border-briella-cream-dark shadow-xl p-2 text-xs">
+            <button class="sort-option-btn w-full text-left py-2 px-3 rounded-xl font-medium text-briella-charcoal hover:bg-briella-cream" data-sort="default">Recomendados</button>
+            <button class="sort-option-btn w-full text-left py-2 px-3 rounded-xl font-medium text-briella-charcoal hover:bg-briella-cream" data-sort="price-asc">Precio: Menor a Mayor</button>
+            <button class="sort-option-btn w-full text-left py-2 px-3 rounded-xl font-medium text-briella-charcoal hover:bg-briella-cream" data-sort="price-desc">Precio: Mayor a Menor</button>
+            <button class="sort-option-btn w-full text-left py-2 px-3 rounded-xl font-medium text-briella-charcoal hover:bg-briella-cream" data-sort="name-asc">Nombre A - Z</button>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Secondary Toolbar (Material Filters & Sorter) -->
-      <div class="flex flex-wrap items-center justify-between gap-4 pt-4 mt-4 border-t border-briella-cream-dark text-xs">
+      <!-- Desktop Filter Categories (Rounded Pill Chips) -->
+      <div class="hidden md:flex items-center justify-center gap-2 overflow-x-auto pb-2 no-scrollbar" id="categoryChips">
+        {categories.map((cat, idx) => (
+          <button 
+            class={`filter-category-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full border transition-all whitespace-nowrap ${
+              idx === 0 
+                ? 'active bg-briella-blue text-white border-briella-blue shadow-sm' 
+                : 'bg-briella-cream text-briella-charcoal/80 border-briella-cream-dark hover:border-briella-blue hover:bg-white'
+            }`}
+            data-category={cat.id}
+          >
+            {cat.name}
+          </button>
+        ))}
+      </div>
+
+      <!-- Desktop Secondary Toolbar (Material Filters & Sorter) -->
+      <div class="hidden md:flex flex-wrap items-center justify-between gap-4 pt-4 mt-3 border-t border-briella-cream-dark text-xs">
         
         <!-- Material Selectors -->
         <div class="flex items-center gap-2">
-          <span class="text-[10px] font-bold uppercase tracking-luxury text-briella-charcoal/60">Material:</span>
-          <button class="filter-material-btn active px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider border border-briella-blue bg-briella-blue text-white" data-material="todos">Todos</button>
-          <button class="filter-material-btn px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider border border-briella-cream-dark bg-white text-briella-charcoal hover:border-briella-blue" data-material="plata 950">Plata 950</button>
-          <button class="filter-material-btn px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider border border-briella-cream-dark bg-white text-briella-charcoal hover:border-briella-gold" data-material="oro 18k">Oro 18k</button>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-briella-charcoal/60">Material:</span>
+          <button class="filter-material-btn active px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border border-briella-blue bg-briella-blue text-white transition-colors" data-material="todos">Todos</button>
+          <button class="filter-material-btn px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border border-briella-cream-dark bg-white text-briella-charcoal hover:border-briella-blue transition-colors" data-material="plata 950">Plata 950</button>
+          <button class="filter-material-btn px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border border-briella-cream-dark bg-white text-briella-charcoal hover:border-briella-gold hover:text-briella-gold-dark transition-colors" data-material="oro 18k">Oro 18k</button>
         </div>
 
-        <!-- Counter & Sorter -->
+        <!-- Counter & Desktop Sorter -->
         <div class="flex items-center gap-4">
-          <span id="catalogCounterText" class="text-xs text-briella-charcoal/60 font-medium">
+          <span id="catalogCounterText" class="text-xs text-briella-charcoal/70 font-semibold uppercase tracking-wider">
             Mostrando {products.length} joyas
           </span>
           <div class="flex items-center gap-1.5">
-            <label for="catalogSorter" class="text-[10px] font-bold uppercase tracking-luxury text-briella-charcoal/60">Ordenar:</label>
-            <select id="catalogSorter" class="bg-briella-cream text-xs py-1 px-2 border border-briella-cream-dark outline-none cursor-pointer">
+            <label for="catalogSorter" class="text-[11px] font-bold uppercase tracking-wider text-briella-charcoal/60">Ordenar:</label>
+            <select id="catalogSorter" class="bg-briella-cream text-xs py-1.5 px-3 rounded-xl border border-briella-cream-dark outline-none cursor-pointer">
               <option value="default">Recomendados</option>
               <option value="price-asc">Precio: Menor a Mayor</option>
               <option value="price-desc">Precio: Mayor a Menor</option>
@@ -109,21 +158,37 @@ import ProductCard from './ProductCard.astro';
 
     </div>
 
-    <!-- Product Grid -->
-    <div id="catalogGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-      {products.map((product) => (
-        <ProductCard product={product} />
+    <!-- Active Filter Tags Display (Mobile & Desktop) -->
+    <div id="activeFilterTagsBar" class="hidden flex-wrap items-center gap-2 mb-4 px-1">
+      <span class="text-[11px] text-briella-charcoal/60 font-bold uppercase tracking-wider">Filtros activos:</span>
+      <span id="tagCategoryPill" class="hidden items-center gap-1 px-3 py-1 rounded-full bg-briella-lavender text-briella-lavender-dark text-xs font-semibold">
+        <span id="tagCategoryLabel"></span>
+        <button id="btnRemoveCatTag" class="hover:text-red-500 font-bold">&times;</button>
+      </span>
+      <span id="tagMaterialPill" class="hidden items-center gap-1 px-3 py-1 rounded-full bg-briella-mint text-briella-mint-dark text-xs font-semibold">
+        <span id="tagMaterialLabel"></span>
+        <button id="btnRemoveMatTag" class="hover:text-red-500 font-bold">&times;</button>
+      </span>
+      <button id="btnClearAllTagsBtn" class="text-[11px] font-bold text-briella-blue underline hover:text-briella-blue-dark">Limpiar todos</button>
+    </div>
+
+    <!-- Product Grid (2 Columns Mobile | 3/4 Columns Desktop) -->
+    <div id="catalogGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+      {products.map((product, idx) => (
+        <ProductCard product={product} index={idx} />
       ))}
     </div>
 
     <!-- Empty State -->
-    <div id="catalogEmptyState" class="hidden text-center py-16 bg-white border border-dashed border-briella-cream-dark p-8">
-      <svg class="w-10 h-10 mx-auto text-briella-blue/50 mb-3 stroke-[1.25]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-      </svg>
-      <h3 class="font-serif text-xl font-medium text-briella-charcoal mb-1">No se encontraron joyas</h3>
-      <p class="text-xs text-briella-charcoal/60 max-w-sm mx-auto mb-4">Intenta con otro término de búsqueda o restablece los filtros.</p>
-      <button id="btnResetFilters" class="px-5 py-2 bg-briella-blue text-white text-xs font-bold uppercase tracking-luxury">
+    <div id="catalogEmptyState" class="hidden text-center py-12 sm:py-16 bg-white rounded-3xl border border-dashed border-briella-cream-dark p-6 sm:p-8">
+      <div class="w-14 h-14 rounded-full bg-briella-cream flex items-center justify-center mx-auto mb-3 text-briella-blue">
+        <svg class="w-7 h-7 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+      </div>
+      <h3 class="font-serif text-xl sm:text-2xl font-medium text-briella-charcoal mb-1">No se encontraron joyas</h3>
+      <p class="text-xs text-briella-charcoal/60 max-w-sm mx-auto mb-5">Intenta con otro término o restablece los filtros para ver todo nuestro catálogo.</p>
+      <button id="btnResetFilters" class="px-6 py-2.5 bg-briella-blue hover:bg-briella-blue-dark text-white rounded-full text-xs font-bold uppercase tracking-wider transition-colors shadow-sm">
         Ver Todas las Joyas
       </button>
     </div>
@@ -131,8 +196,98 @@ import ProductCard from './ProductCard.astro';
   </div>
 </section>
 
-<!-- Client Script for Interactive Instant Filtering -->
-<script is:inline>
+<!-- Mobile Filter Bottom Sheet / Modal (Slide-up Drawer) -->
+<div id="mobileFilterDrawerBackdrop" class="hidden fixed inset-0 z-50 bg-briella-charcoal/60 backdrop-blur-sm">
+  <div id="mobileFilterDrawerContent" class="fixed bottom-0 inset-x-0 bg-white rounded-t-3xl max-h-[85vh] overflow-y-auto p-5 pb-8 shadow-2xl flex flex-col justify-between sheet-slide-up">
+    
+    <div>
+      <!-- Drawer Header -->
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-briella-cream-dark">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-briella-blue stroke-[2]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="4" y1="21" x2="4" y2="14"></line>
+            <line x1="4" y1="10" x2="4" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12" y2="3"></line>
+            <line x1="20" y1="21" x2="20" y2="16"></line>
+            <line x1="20" y1="12" x2="20" y2="3"></line>
+          </svg>
+          <h3 class="font-serif text-lg font-bold text-briella-charcoal">Filtros de Catálogo</h3>
+        </div>
+        <button id="btnCloseMobileFilterDrawer" class="w-8 h-8 rounded-full bg-briella-cream flex items-center justify-center text-briella-charcoal hover:bg-briella-charcoal hover:text-white transition-colors" aria-label="Cerrar filtros">
+          &times;
+        </button>
+      </div>
+
+      <!-- Categories Section -->
+      <div class="mb-5">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-briella-charcoal mb-2.5">Categorías</h4>
+        <div class="grid grid-cols-2 gap-2">
+          {categories.map((cat) => (
+            <button 
+              class="mobile-filter-cat-btn py-2.5 px-3 rounded-xl border border-briella-cream-dark text-xs font-semibold text-briella-charcoal hover:border-briella-blue text-left flex items-center justify-between transition-colors"
+              data-category={cat.id}
+            >
+              <span>{cat.name}</span>
+              <span class="w-2 h-2 rounded-full border border-briella-charcoal/40 check-indicator"></span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Material Section -->
+      <div class="mb-5">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-briella-charcoal mb-2.5">Material</h4>
+        <div class="grid grid-cols-3 gap-2">
+          {materials.map((mat) => (
+            <button 
+              class="mobile-filter-mat-btn py-2 px-2.5 rounded-xl border border-briella-cream-dark text-[11px] font-semibold text-briella-charcoal text-center hover:border-briella-blue transition-colors"
+              data-material={mat.id}
+            >
+              {mat.name}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Sorting Section -->
+      <div class="mb-6">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-briella-charcoal mb-2.5">Ordenar Por</h4>
+        <div class="grid grid-cols-2 gap-2">
+          <button class="mobile-filter-sort-btn py-2 px-3 rounded-xl border border-briella-cream-dark text-xs font-medium text-left hover:border-briella-blue active" data-sort="default">Recomendados</button>
+          <button class="mobile-filter-sort-btn py-2 px-3 rounded-xl border border-briella-cream-dark text-xs font-medium text-left hover:border-briella-blue" data-sort="price-asc">Menor Precio</button>
+          <button class="mobile-filter-sort-btn py-2 px-3 rounded-xl border border-briella-cream-dark text-xs font-medium text-left hover:border-briella-blue" data-sort="price-desc">Mayor Precio</button>
+          <button class="mobile-filter-sort-btn py-2 px-3 rounded-xl border border-briella-cream-dark text-xs font-medium text-left hover:border-briella-blue" data-sort="name-asc">Nombre A - Z</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Actions Footer -->
+    <div class="grid grid-cols-2 gap-3 pt-3 border-t border-briella-cream-dark">
+      <button 
+        id="btnDrawerReset" 
+        type="button" 
+        class="py-3 px-4 rounded-2xl bg-briella-cream hover:bg-briella-cream-dark text-briella-charcoal text-xs font-bold uppercase tracking-wider text-center transition-colors"
+      >
+        Limpiar Filtros
+      </button>
+      <button 
+        id="btnDrawerApply" 
+        type="button" 
+        class="py-3 px-4 rounded-2xl bg-briella-blue hover:bg-briella-blue-dark text-white text-xs font-bold uppercase tracking-wider text-center shadow-md transition-colors"
+      >
+        Aplicar Filtros
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Interactive Instant Filtering Script with AutoAnimate -->
+<script>
+  import autoAnimate from '@formkit/auto-animate';
+
   document.addEventListener('DOMContentLoaded', () => {
     let currentCategory = 'todos';
     let currentMaterial = 'todos';
@@ -140,16 +295,82 @@ import ProductCard from './ProductCard.astro';
     let currentSort = 'default';
 
     const cards = Array.from(document.querySelectorAll('.product-card'));
+    const totalProductsCount = cards.length;
     const grid = document.getElementById('catalogGrid');
+    
+    // Initialize AutoAnimate on Catalog Grid
+    if (grid) {
+      autoAnimate(grid, {
+        duration: 320,
+        easing: 'cubic-bezier(0.25, 1, 0.5, 1)'
+      });
+    }
+
+    // Individual Card IntersectionObserver for unique entrance animations per card
+    const cardObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          el.classList.add('is-visible');
+          obs.unobserve(el);
+        }
+      });
+    }, {
+      threshold: 0.05,
+      rootMargin: '0px 0px -20px 0px'
+    });
+
+    cards.forEach(card => cardObserver.observe(card));
+
     const emptyState = document.getElementById('catalogEmptyState');
     const counterText = document.getElementById('catalogCounterText');
+    const mobileCounterText = document.getElementById('catalogMobileCounterText');
+    const activeTagText = document.getElementById('catalogActiveTagText');
+    const dynamicTitle = document.getElementById('catalogDynamicTitle');
     const searchInput = document.getElementById('catalogSearchInput');
     const headerSearchInput = document.getElementById('headerSearchInput');
+    const mobileHeaderSearchInput = document.getElementById('mobileHeaderSearchInput');
     const sorter = document.getElementById('catalogSorter');
     const resetBtn = document.getElementById('btnResetFilters');
 
+    // Category Buttons
     const categoryBtns = document.querySelectorAll('.filter-category-btn');
     const materialBtns = document.querySelectorAll('.filter-material-btn');
+
+    // Mobile Drawer Elements
+    const mobileDrawer = document.getElementById('mobileFilterDrawerBackdrop');
+    const btnOpenFilters = document.getElementById('btnOpenMobileFilters');
+    const btnCloseFilters = document.getElementById('btnCloseMobileFilterDrawer');
+    const btnDrawerApply = document.getElementById('btnDrawerApply');
+    const btnDrawerReset = document.getElementById('btnDrawerReset');
+    const mobileCatBtns = document.querySelectorAll('.mobile-filter-cat-btn');
+    const mobileMatBtns = document.querySelectorAll('.mobile-filter-mat-btn');
+    const mobileSortBtns = document.querySelectorAll('.mobile-filter-sort-btn');
+    const activeFilterDot = document.getElementById('mobileActiveFilterBadge');
+
+    // Tags bar
+    const tagsBar = document.getElementById('activeFilterTagsBar');
+    const tagCatPill = document.getElementById('tagCategoryPill');
+    const tagCatLabel = document.getElementById('tagCategoryLabel');
+    const tagMatPill = document.getElementById('tagMaterialPill');
+    const tagMatLabel = document.getElementById('tagMaterialLabel');
+    const btnClearAllTags = document.getElementById('btnClearAllTagsBtn');
+    const btnRemoveCat = document.getElementById('btnRemoveCatTag');
+    const btnRemoveMat = document.getElementById('btnRemoveMatTag');
+
+    // Mobile Sort Dropdown
+    const btnOpenSort = document.getElementById('btnOpenMobileSort');
+    const sortDropdown = document.getElementById('mobileSortDropdown');
+    const sortOptionBtns = document.querySelectorAll('.sort-option-btn');
+
+    const categoryNames = {
+      todos: 'Todas las Joyas',
+      aretes: 'Aretes',
+      collares: 'Collares',
+      pulseras: 'Pulseras',
+      anillos: 'Anillos',
+      personalizados: 'Joyas Personalizadas'
+    };
 
     function applyFilters() {
       let visibleCount = 0;
@@ -183,15 +404,69 @@ import ProductCard from './ProductCard.astro';
         filteredCards.sort((a, b) => a.name.localeCompare(b.name));
       }
 
-      if (grid) {
-        filteredCards.forEach(item => grid.appendChild(item.element));
+      // Cascade reveal for filtered cards individually
+      filteredCards.forEach((item, idx) => {
+        item.element.classList.remove('is-visible');
+        setTimeout(() => {
+          item.element.classList.add('is-visible');
+        }, Math.min(idx * 40, 400));
+      });
+
+      // Update counters & dynamic titles
+      const categoryLabel = categoryNames[currentCategory] || 'Catálogo de Joyas';
+      if (dynamicTitle) {
+        dynamicTitle.textContent = currentCategory === 'todos' ? 'Catálogo de Joyas' : categoryLabel;
       }
 
-      // Counter & Empty State
       if (counterText) {
-        counterText.textContent = `Mostrando ${visibleCount} joya${visibleCount === 1 ? '' : 's'}`;
+        counterText.textContent = `Mostrando ${visibleCount} de ${totalProductsCount} joyas`;
       }
 
+      if (mobileCounterText) {
+        mobileCounterText.textContent = `Mostrando 1–${visibleCount} de ${totalProductsCount}`;
+      }
+
+      if (activeTagText) {
+        activeTagText.textContent = `${categoryLabel}${currentMaterial !== 'todos' ? ' · ' + currentMaterial.toUpperCase() : ''}`;
+      }
+
+      // Update filter dot badge
+      const hasCustomFilter = currentCategory !== 'todos' || currentMaterial !== 'todos' || currentSearch.length > 0;
+      if (activeFilterDot) {
+        if (hasCustomFilter) activeFilterDot.classList.remove('hidden');
+        else activeFilterDot.classList.add('hidden');
+      }
+
+      // Update Tags bar
+      if (tagsBar) {
+        if (hasCustomFilter) {
+          tagsBar.classList.remove('hidden');
+          tagsBar.classList.add('flex');
+
+          if (currentCategory !== 'todos') {
+            tagCatPill.classList.remove('hidden');
+            tagCatPill.classList.add('inline-flex');
+            tagCatLabel.textContent = categoryLabel;
+          } else {
+            tagCatPill.classList.add('hidden');
+            tagCatPill.classList.remove('inline-flex');
+          }
+
+          if (currentMaterial !== 'todos') {
+            tagMatPill.classList.remove('hidden');
+            tagMatPill.classList.add('inline-flex');
+            tagMatLabel.textContent = currentMaterial === 'plata 950' ? 'Plata Ley 950' : 'Oro 18k';
+          } else {
+            tagMatPill.classList.add('hidden');
+            tagMatPill.classList.remove('inline-flex');
+          }
+        } else {
+          tagsBar.classList.add('hidden');
+          tagsBar.classList.remove('flex');
+        }
+      }
+
+      // Empty State Handling
       if (emptyState && grid) {
         if (visibleCount === 0) {
           emptyState.classList.remove('hidden');
@@ -201,37 +476,153 @@ import ProductCard from './ProductCard.astro';
           grid.classList.remove('hidden');
         }
       }
+
+      // Sync Desktop & Mobile buttons state
+      syncButtonStates();
     }
 
-    // Category click
+    function syncButtonStates() {
+      // Desktop category tabs
+      categoryBtns.forEach(btn => {
+        if (btn.dataset.category === currentCategory) {
+          btn.classList.add('active', 'bg-briella-blue', 'text-white', 'border-briella-blue', 'shadow-sm');
+          btn.classList.remove('bg-briella-cream', 'text-briella-charcoal/80', 'border-briella-cream-dark');
+        } else {
+          btn.classList.remove('active', 'bg-briella-blue', 'text-white', 'border-briella-blue', 'shadow-sm');
+          btn.classList.add('bg-briella-cream', 'text-briella-charcoal/80', 'border-briella-cream-dark');
+        }
+      });
+
+      // Desktop material tabs
+      materialBtns.forEach(btn => {
+        if (btn.dataset.material === currentMaterial) {
+          btn.classList.add('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
+          btn.classList.remove('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
+        } else {
+          btn.classList.remove('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
+          btn.classList.add('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
+        }
+      });
+
+      // Mobile Drawer categories
+      mobileCatBtns.forEach(btn => {
+        const isSel = btn.dataset.category === currentCategory;
+        const ind = btn.querySelector('.check-indicator');
+        if (isSel) {
+          btn.classList.add('bg-briella-blue', 'text-white', 'border-briella-blue');
+          btn.classList.remove('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
+          if (ind) ind.classList.add('bg-white', 'border-white');
+        } else {
+          btn.classList.remove('bg-briella-blue', 'text-white', 'border-briella-blue');
+          btn.classList.add('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
+          if (ind) ind.classList.remove('bg-white', 'border-white');
+        }
+      });
+
+      // Mobile Drawer materials
+      mobileMatBtns.forEach(btn => {
+        if (btn.dataset.material === currentMaterial) {
+          btn.classList.add('bg-briella-blue', 'text-white', 'border-briella-blue');
+          btn.classList.remove('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
+        } else {
+          btn.classList.remove('bg-briella-blue', 'text-white', 'border-briella-blue');
+          btn.classList.add('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
+        }
+      });
+
+      // Mobile Sort buttons
+      mobileSortBtns.forEach(btn => {
+        if (btn.dataset.sort === currentSort) {
+          btn.classList.add('bg-briella-blue', 'text-white', 'border-briella-blue');
+          btn.classList.remove('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
+        } else {
+          btn.classList.remove('bg-briella-blue', 'text-white', 'border-briella-blue');
+          btn.classList.add('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
+        }
+      });
+    }
+
+    // Category click desktop
     categoryBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        categoryBtns.forEach(b => {
-          b.classList.remove('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
-          b.classList.add('bg-white', 'text-briella-charcoal/80', 'border-briella-cream-dark');
-        });
-        btn.classList.add('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
-        btn.classList.remove('bg-white', 'text-briella-charcoal/80', 'border-briella-cream-dark');
         currentCategory = btn.dataset.category || 'todos';
         applyFilters();
       });
     });
 
-    // Material click
+    // Material click desktop
     materialBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        materialBtns.forEach(b => {
-          b.classList.remove('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
-          b.classList.add('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
-        });
-        btn.classList.add('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
-        btn.classList.remove('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
         currentMaterial = btn.dataset.material || 'todos';
         applyFilters();
       });
     });
 
-    // Search inputs
+    // Mobile Drawer Open / Close
+    function openDrawer() {
+      if (mobileDrawer) {
+        mobileDrawer.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeDrawer() {
+      if (mobileDrawer) {
+        mobileDrawer.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+
+    if (btnOpenFilters) btnOpenFilters.addEventListener('click', openDrawer);
+    if (btnCloseFilters) btnCloseFilters.addEventListener('click', closeDrawer);
+    if (mobileDrawer) {
+      mobileDrawer.addEventListener('click', (e) => {
+        if (e.target === mobileDrawer) closeDrawer();
+      });
+    }
+
+    // Mobile Drawer Category & Material click
+    mobileCatBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentCategory = btn.dataset.category || 'todos';
+        syncButtonStates();
+      });
+    });
+
+    mobileMatBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentMaterial = btn.dataset.material || 'todos';
+        syncButtonStates();
+      });
+    });
+
+    mobileSortBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentSort = btn.dataset.sort || 'default';
+        if (sorter) sorter.value = currentSort;
+        syncButtonStates();
+      });
+    });
+
+    if (btnDrawerApply) {
+      btnDrawerApply.addEventListener('click', () => {
+        applyFilters();
+        closeDrawer();
+      });
+    }
+
+    if (btnDrawerReset) {
+      btnDrawerReset.addEventListener('click', () => {
+        currentCategory = 'todos';
+        currentMaterial = 'todos';
+        currentSort = 'default';
+        if (sorter) sorter.value = 'default';
+        applyFilters();
+        closeDrawer();
+      });
+    }
+
+    // Search inputs binding
     if (searchInput) {
       searchInput.addEventListener('input', (e) => {
         currentSearch = e.target.value.trim();
@@ -243,6 +634,7 @@ import ProductCard from './ProductCard.astro';
       headerSearchInput.addEventListener('input', (e) => {
         currentSearch = e.target.value.trim();
         if (searchInput) searchInput.value = currentSearch;
+        if (mobileHeaderSearchInput) mobileHeaderSearchInput.value = currentSearch;
         const catalogEl = document.getElementById('catalogo');
         if (catalogEl && window.scrollY < 200) {
           catalogEl.scrollIntoView({ behavior: 'smooth' });
@@ -251,7 +643,7 @@ import ProductCard from './ProductCard.astro';
       });
     }
 
-    // Sorter
+    // Sorter change
     if (sorter) {
       sorter.addEventListener('change', (e) => {
         currentSort = e.target.value;
@@ -259,55 +651,71 @@ import ProductCard from './ProductCard.astro';
       });
     }
 
-    // Reset button
-    if (resetBtn) {
-      resetBtn.addEventListener('click', () => {
+    // Mobile Sort Popover
+    if (btnOpenSort && sortDropdown) {
+      btnOpenSort.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sortDropdown.classList.toggle('hidden');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!sortDropdown.contains(e.target) && e.target !== btnOpenSort) {
+          sortDropdown.classList.add('hidden');
+        }
+      });
+
+      sortOptionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSort = btn.dataset.sort || 'default';
+          if (sorter) sorter.value = currentSort;
+          sortDropdown.classList.add('hidden');
+          applyFilters();
+        });
+      });
+    }
+
+    // Reset handlers
+    function resetAllFilters() {
+      currentCategory = 'todos';
+      currentMaterial = 'todos';
+      currentSearch = '';
+      currentSort = 'default';
+      if (searchInput) searchInput.value = '';
+      if (headerSearchInput) headerSearchInput.value = '';
+      if (mobileHeaderSearchInput) mobileHeaderSearchInput.value = '';
+      if (sorter) sorter.value = 'default';
+      applyFilters();
+    }
+
+    if (resetBtn) resetBtn.addEventListener('click', resetAllFilters);
+    if (btnClearAllTags) btnClearAllTags.addEventListener('click', resetAllFilters);
+
+    if (btnRemoveCat) {
+      btnRemoveCat.addEventListener('click', () => {
         currentCategory = 'todos';
+        applyFilters();
+      });
+    }
+
+    if (btnRemoveMat) {
+      btnRemoveMat.addEventListener('click', () => {
         currentMaterial = 'todos';
-        currentSearch = '';
-        currentSort = 'default';
-        if (searchInput) searchInput.value = '';
-        if (headerSearchInput) headerSearchInput.value = '';
-        if (sorter) sorter.value = 'default';
-        
-        categoryBtns.forEach((b, i) => {
-          if (i === 0) {
-            b.classList.add('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
-            b.classList.remove('bg-white', 'text-briella-charcoal/80', 'border-briella-cream-dark');
-          } else {
-            b.classList.remove('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
-            b.classList.add('bg-white', 'text-briella-charcoal/80', 'border-briella-cream-dark');
-          }
-        });
-
-        materialBtns.forEach((b, i) => {
-          if (i === 0) {
-            b.classList.add('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
-            b.classList.remove('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
-          } else {
-            b.classList.remove('active', 'bg-briella-blue', 'text-white', 'border-briella-blue');
-            b.classList.add('bg-white', 'text-briella-charcoal', 'border-briella-cream-dark');
-          }
-        });
-
         applyFilters();
       });
     }
 
     // External Nav links hook
     document.querySelectorAll('[data-nav-category]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        const cat = link.dataset.navCategory;
-        const targetBtn = document.querySelector(`.filter-category-btn[data-category="${cat}"]`);
-        if (targetBtn) targetBtn.click();
+      link.addEventListener('click', () => {
+        currentCategory = link.dataset.navCategory || 'todos';
+        applyFilters();
       });
     });
 
     document.querySelectorAll('[data-nav-material]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        const mat = link.dataset.navMaterial;
-        const targetBtn = document.querySelector(`.filter-material-btn[data-material="${mat}"]`);
-        if (targetBtn) targetBtn.click();
+      link.addEventListener('click', () => {
+        currentMaterial = link.dataset.navMaterial || 'todos';
+        applyFilters();
       });
     });
 
