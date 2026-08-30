@@ -7,13 +7,13 @@
   class="hidden sm:block bg-briella-charcoal text-[#EDE8DF] text-[11px] font-medium tracking-luxury uppercase py-2 px-4 text-center"
 >
   <div class="max-w-7xl mx-auto flex items-center justify-center gap-3">
-    <span class="inline-flex items-center gap-1.5">
+    <span class="inline-flex items-center gap-1.5 text-white/90">
       Envíos a todo el Perú
     </span>
-    <span class="text-briella-gold">&bull;</span>
+    <span class="text-briella-rose">&bull;</span>
     <span>Plata Ley 950 &amp; Oro 18k</span>
-    <span class="hidden md:inline text-briella-gold">&bull;</span>
-    <span class="hidden md:inline">Taller Artesanal Directo</span>
+    <span class="hidden md:inline text-briella-rose">&bull;</span>
+    <span class="hidden md:inline">Taller Artesanal de Joyería Fina</span>
   </div>
 </div>
 
@@ -51,26 +51,26 @@
         <a
           href="#"
           class="inline-flex items-center group py-1"
-          aria-label="Joyería Briella"
+          aria-label="SM Joyería"
         >
           <img
-            src="assets/images/logo-transparent.png"
-            alt="Joyería Briella"
-            class="h-7 sm:h-8 md:h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+            src="assets/images/logo.svg"
+            alt="SM Joyería"
+            class="h-8 sm:h-9 md:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
             width="170"
-            height="36"
+            height="40"
           />
         </a>
       </div>
 
-      <!-- Center: Desktop Search Bar (Rounded-full Pill) -->
+      <!-- Center: Desktop Search Bar -->
       <div class="flex-1 max-w-lg hidden md:block">
         <div class="relative w-full">
           <input
             type="text"
             id="headerSearchInput"
             placeholder="Buscar aretes, cadenas, anillos, oro 18k, plata 950..."
-            class="w-full bg-briella-cream text-xs tracking-wider py-2.5 pl-10 pr-4 rounded-full border border-briella-cream-dark focus:border-briella-blue focus:bg-white transition-all outline-none shadow-sm"
+            class="w-full bg-briella-cream text-xs tracking-wider py-2.5 pl-10 pr-4 rounded-xl border border-briella-cream-dark focus:border-briella-blue focus:bg-white transition-all outline-none shadow-xs"
           />
           <svg
             class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-briella-charcoal/50 stroke-[1.5]"
@@ -84,15 +84,15 @@
         </div>
       </div>
 
-      <!-- Right: WhatsApp Contact & Rounded Cart Trigger -->
+      <!-- Right: WhatsApp Contact & Cart Trigger -->
       <div class="flex items-center justify-end gap-2 sm:gap-4">
         <!-- Desktop WhatsApp Link -->
         <a
-          href="https://wa.me/51923340617?text=¡Hola%20Joyería%20Briella!%20Quisiera%20consultar%20sobre%20su%20catálogo%20de%20joyas."
+          href="https://wa.me/51984018633?text=¡Hola%20SM%20Joyería!%20Quisiera%20consultar%20sobre%20su%20catálogo%20de%20joyas."
           target="_blank"
           rel="noopener noreferrer"
-          class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-briella-cream hover:bg-briella-cream-dark border border-briella-cream-dark text-xs font-semibold tracking-wider text-briella-charcoal transition-colors"
-          title="WhatsApp Oficial"
+          class="hidden lg:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-briella-cream hover:bg-briella-cream-dark border border-briella-cream-dark text-xs font-semibold tracking-wider text-briella-charcoal transition-colors"
+          title="WhatsApp Oficial SM Joyería"
         >
           <svg
             class="w-4 h-4 text-briella-whatsapp"
@@ -104,14 +104,14 @@
             ></path>
           </svg>
           <span class="text-[11px] font-bold text-briella-charcoal"
-            >+51 923 340 617</span
+            >+51 984 018 633</span
           >
         </a>
 
         <!-- Shopping Cart Trigger -->
         <button
           id="btnCartTrigger"
-          class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-briella-cream hover:bg-briella-cream-dark border border-briella-cream-dark text-briella-charcoal transition-all focus:outline-none group shadow-sm active:scale-95"
+          class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-briella-cream hover:bg-briella-cream-dark border border-briella-cream-dark text-briella-charcoal transition-all focus:outline-none group shadow-xs active:scale-95"
           aria-label="Ver carrito de compras"
         >
           <span
@@ -148,7 +148,7 @@
           type="text"
           id="mobileHeaderSearchInput"
           placeholder="Buscar joyas..."
-          class="w-full bg-briella-cream text-xs py-2 pl-9 pr-8 rounded-full border border-briella-cream-dark focus:border-briella-blue focus:bg-white transition-all outline-none shadow-sm placeholder:text-briella-charcoal/50"
+          class="w-full bg-briella-cream text-xs py-2 pl-9 pr-8 rounded-xl border border-briella-cream-dark focus:border-briella-blue focus:bg-white transition-all outline-none shadow-xs placeholder:text-briella-charcoal/50"
         />
         <svg
           class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-briella-charcoal/50 stroke-[1.5]"
@@ -170,65 +170,50 @@
       </div>
     </div>
 
-    <!-- Desktop Secondary Navigation (Rounded Pills Style) -->
+    <!-- Desktop Secondary Navigation -->
     <nav
-      class="hidden md:flex items-center justify-center gap-2 py-2.5 border-t border-briella-cream-dark text-[11px] font-semibold tracking-luxury uppercase text-briella-charcoal/80"
+      class="hidden md:flex items-center justify-center gap-1.5 py-2.5 border-t border-briella-cream-dark text-[11px] font-semibold tracking-luxury uppercase text-briella-charcoal/80"
     >
       <a
         href="#hero"
-        class="px-3 py-1 rounded-full hover:bg-briella-cream hover:text-briella-blue transition-colors"
+        class="px-3 py-1 rounded-lg hover:bg-briella-cream hover:text-briella-blue transition-colors"
         >Inicio</a
       >
       <a
         href="#catalogo"
-        class="px-3 py-1 rounded-full hover:bg-briella-cream hover:text-briella-blue transition-colors"
-        >Catálogo Completo</a
-      >
-      <a
-        href="#catalogo"
         data-nav-material="plata 950"
-        class="px-3 py-1 rounded-full hover:bg-briella-cream hover:text-briella-blue transition-colors"
+        class="px-3 py-1 rounded-lg hover:bg-briella-cream hover:text-briella-blue transition-colors"
         >Plata Ley 950</a
       >
       <a
         href="#catalogo"
         data-nav-material="oro 18k"
-        class="px-3 py-1 rounded-full hover:bg-briella-cream hover:text-briella-blue transition-colors"
+        class="px-3 py-1 rounded-lg hover:bg-briella-cream hover:text-briella-blue transition-colors"
         >Oro 18k</a
       >
       <a
         href="#catalogo"
         data-nav-category="aretes"
-        class="px-3 py-1 rounded-full hover:bg-briella-cream hover:text-briella-blue transition-colors"
+        class="px-3 py-1 rounded-lg hover:bg-briella-cream hover:text-briella-blue transition-colors"
         >Aretes</a
       >
       <a
         href="#catalogo"
         data-nav-category="collares"
-        class="px-3 py-1 rounded-full hover:bg-briella-cream hover:text-briella-blue transition-colors"
+        class="px-3 py-1 rounded-lg hover:bg-briella-cream hover:text-briella-blue transition-colors"
         >Collares</a
       >
       <a
         href="#catalogo"
         data-nav-category="pulseras"
-        class="px-3 py-1 rounded-full hover:bg-briella-cream hover:text-briella-blue transition-colors"
+        class="px-3 py-1 rounded-lg hover:bg-briella-cream hover:text-briella-blue transition-colors"
         >Pulseras</a
       >
       <a
         href="#catalogo"
         data-nav-category="anillos"
-        class="px-3 py-1 rounded-full hover:bg-briella-cream hover:text-briella-blue transition-colors"
+        class="px-3 py-1 rounded-lg hover:bg-briella-cream hover:text-briella-blue transition-colors"
         >Anillos</a
-      >
-      <a
-        href="#personalizados"
-        class="px-3 py-1 rounded-full bg-briella-lavender text-briella-lavender-dark hover:bg-briella-blue hover:text-white transition-colors font-bold"
-        >Personalizados</a
-      >
-      <a
-        href="#contacto"
-        class="px-3 py-1 rounded-full hover:bg-briella-cream hover:text-briella-blue transition-colors"
-        >Contacto</a
       >
     </nav>
   </div>

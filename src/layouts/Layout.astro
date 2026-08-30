@@ -2,7 +2,6 @@
 // src/layouts/Layout.astro
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import CartDrawer from '../components/CartDrawer.astro';
 import ProductModal from '../components/ProductModal.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import FloatingMobileBar from '../components/FloatingMobileBar.astro';
@@ -16,8 +15,8 @@ interface Props {
 }
 
 const { 
-  title = "Joyería Briella | Joyas de Plata Ley 950 y Oro 18k en Perú", 
-  description = "Catálogo oficial de Joyería Briella. Pulseras, aretes, collares, anillos y piezas personalizadas con nombre en Plata Ley 950 y Oro 18k. Pedidos y compras directas por WhatsApp."
+  title = "SM Joyería | Joyas de Plata Ley 950 y Oro 18k en Perú", 
+  description = "Catálogo oficial de SM Joyería. Diseños exclusivos y personalizados en Plata Ley 950 y Oro 18k. Pedidos directos por WhatsApp con envíos a todo el Perú."
 } = Astro.props;
 ---
 
@@ -28,8 +27,8 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="Joyería Briella, joyas de plata 950, joyas de oro 18k, dijes con nombre, aretes mariposa plata, cadena cubana plata, joyas personalizadas Perú" />
-    <link rel="icon" type="image/png" href="assets/images/logo.png" />
+    <meta name="keywords" content="SM Joyería, Joyería SM, joyas de plata 950, joyas de oro 18k, dijes con nombre, aretes mariposa plata, cadena cubana plata, joyas personalizadas Perú" />
+    <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg" />
 
     <!-- Google Fonts: Cormorant Garamond, Playfair Display, Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -39,7 +38,7 @@ const {
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="assets/images/hero-banner.jpg" />
+    <meta property="og:image" content="assets/images/logo.jpg" />
     <meta property="og:type" content="website" />
   </head>
   <body class="min-h-screen flex flex-col bg-briella-cream text-briella-charcoal selection:bg-briella-blue selection:text-white">
@@ -57,7 +56,6 @@ const {
 
     <!-- 4. Global Modals & Utilities -->
     <ProductModal />
-    <CartDrawer />
     <MobileMenuDrawer />
     <FloatingWhatsApp />
     <FloatingMobileBar />

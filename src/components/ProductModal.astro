@@ -2,300 +2,1509 @@
 // src/components/ProductModal.astro
 ---
 
-<div id="productDetailModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-briella-charcoal/65 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-200" role="dialog" aria-modal="true" aria-hidden="true">
-  <div class="relative w-full max-w-3xl bg-white rounded-3xl border border-briella-cream-dark shadow-2xl max-h-[92vh] overflow-y-auto grid grid-cols-1 md:grid-cols-2 overflow-hidden">
-    
-    <!-- Close Button -->
-    <button id="btnModalClose" class="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm border border-briella-cream-dark flex items-center justify-center text-briella-charcoal hover:bg-briella-charcoal hover:text-white transition-colors shadow-sm" aria-label="Cerrar modal">
-      <svg class="w-4 h-4 stroke-[2]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
-    </button>
-
-    <!-- Modal Media -->
-    <div class="bg-[#FAF8F5] flex flex-col items-center justify-center p-6 border-b md:border-b-0 md:border-r border-briella-cream-dark">
-      <div class="w-full aspect-square max-w-[280px] rounded-2xl overflow-hidden bg-white shadow-xs">
-        <img id="modalProductImg" src="" alt="" class="w-full h-full object-cover" />
+<!-- Unified 3-Step Checkout Modal for SM Joyería (Single Item & Multi-Item Cart) -->
+<div
+  id="productDetailModal"
+  class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-briella-charcoal/70 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+>
+  <div
+    class="relative w-full max-w-2xl bg-white rounded-2xl border border-briella-cream-dark shadow-2xl max-h-[94vh] flex flex-col overflow-hidden"
+  >
+    <!-- Top Header -->
+    <div
+      class="p-4 sm:p-5 border-b border-briella-cream-dark flex items-center justify-between bg-white"
+    >
+      <div>
+        <h2
+          id="checkoutModalMainTitle"
+          class="font-serif text-lg sm:text-xl font-bold tracking-tight text-briella-charcoal"
+        >
+          FINALIZAR COMPRA — SM JOYERÍA
+        </h2>
+        <p
+          class="text-[10px] sm:text-[11px] uppercase tracking-widest text-briella-charcoal/60 font-semibold mt-0.5"
+        >
+          INGRESA TUS DATOS DE ENVÍO Y MÉTODO DE PAGO
+        </p>
       </div>
-      <span id="modalProductBadge" class="mt-3 text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-briella-cream-dark bg-white text-briella-blue shadow-xs"></span>
+
+      <button
+        id="btnModalClose"
+        type="button"
+        class="w-8 h-8 rounded-lg bg-briella-cream hover:bg-briella-charcoal hover:text-white flex items-center justify-center text-briella-charcoal transition-colors focus:outline-none"
+        aria-label="Cerrar modal"
+      >
+        <svg
+          class="w-4 h-4 stroke-[2]"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
     </div>
 
-    <!-- Modal Form & Purchase Area -->
-    <div class="p-5 sm:p-7 flex flex-col justify-between space-y-4">
-      <div>
-        <span id="modalProductCategory" class="text-[10px] font-bold uppercase tracking-widest text-briella-blue block mb-1"></span>
-        <h2 id="modalProductTitle" class="font-serif text-xl sm:text-2xl font-medium text-briella-charcoal mb-1.5 leading-snug"></h2>
-        
-        <!-- Price Row & Quantity -->
-        <div class="flex items-center justify-between pb-3 mb-3 border-b border-briella-cream-dark">
-          <div class="flex items-baseline gap-1">
-            <span class="text-xs font-bold text-briella-blue">S/</span>
-            <span id="modalProductPrice" class="text-xl font-bold font-sans text-briella-charcoal"></span>
+    <!-- Stepper Navigation (Paso 1: ENVÍO | Paso 2: PAGO | Paso 3: CONFIRMAR) -->
+    <div
+      id="modalStepperBar"
+      class="px-6 py-3 bg-briella-cream border-b border-briella-cream-dark"
+    >
+      <div class="max-w-md mx-auto flex items-center justify-between relative">
+        <!-- Step 1 Indicator -->
+        <div class="flex flex-col items-center gap-1 z-10">
+          <div
+            id="stepperCircle1"
+            class="w-7 h-7 rounded-full bg-briella-purple text-white flex items-center justify-center text-xs font-bold transition-all shadow-xs"
+          >
+            <svg
+              id="stepperCheck1"
+              class="w-3.5 h-3.5 stroke-[2.5] hidden"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span id="stepperNum1">1</span>
           </div>
+          <span
+            id="stepperText1"
+            class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-briella-charcoal"
+            >ENVÍO</span
+          >
+        </div>
 
-          <div class="flex items-center border border-briella-cream-dark bg-white rounded-xl overflow-hidden p-0.5">
-            <button id="modalQtyMinus" type="button" class="w-7 h-7 flex items-center justify-center font-bold text-xs rounded-lg hover:bg-briella-cream active:scale-95 transition-colors">-</button>
-            <span id="modalQtyDisplay" class="w-7 text-center text-xs font-bold font-sans">1</span>
-            <button id="modalQtyPlus" type="button" class="w-7 h-7 flex items-center justify-center font-bold text-xs rounded-lg hover:bg-briella-cream active:scale-95 transition-colors">+</button>
+        <!-- Connecting Line 1 -->
+        <div class="flex-1 h-0.5 mx-2 bg-briella-cream-dark relative">
+          <div
+            id="stepperLine1"
+            class="h-full bg-briella-purple w-0 transition-all duration-300"
+          >
           </div>
         </div>
 
-        <!-- Customer Data Form Required to Order -->
-        <div class="space-y-2.5">
-          <div class="text-[11px] font-bold uppercase tracking-wider text-briella-charcoal/80 flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-briella-blue stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <!-- Step 2 Indicator -->
+        <div class="flex flex-col items-center gap-1 z-10">
+          <div
+            id="stepperCircle2"
+            class="w-7 h-7 rounded-full bg-briella-cream-dark text-briella-charcoal/60 flex items-center justify-center text-xs font-bold transition-all"
+          >
+            <svg
+              id="stepperCheck2"
+              class="w-3.5 h-3.5 stroke-[2.5] hidden"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <svg
+              id="stepperCard2"
+              class="w-3.5 h-3.5 stroke-[2]"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+              <line x1="1" y1="10" x2="23" y2="10"></line>
+            </svg>
+          </div>
+          <span
+            id="stepperText2"
+            class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-briella-charcoal/50"
+            >PAGO</span
+          >
+        </div>
+
+        <!-- Connecting Line 2 -->
+        <div class="flex-1 h-0.5 mx-2 bg-briella-cream-dark relative">
+          <div
+            id="stepperLine2"
+            class="h-full bg-briella-purple w-0 transition-all duration-300"
+          >
+          </div>
+        </div>
+
+        <!-- Step 3 Indicator -->
+        <div class="flex flex-col items-center gap-1 z-10">
+          <div
+            id="stepperCircle3"
+            class="w-7 h-7 rounded-full bg-briella-cream-dark text-briella-charcoal/60 flex items-center justify-center text-xs font-bold transition-all"
+          >
+            <svg
+              class="w-3.5 h-3.5 stroke-[2]"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </div>
+          <span
+            id="stepperText3"
+            class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-briella-charcoal/50"
+            >CONFIRMAR</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Scrollable Modal Body -->
+    <div class="flex-1 overflow-y-auto p-4 sm:p-6">
+      <!-- ============================================== -->
+      <!-- PASO 1: DATOS DE ENVÍO & DETALLES DE PRODUCTOS -->
+      <!-- ============================================== -->
+      <div id="modalStep1Content" class="space-y-4">
+        <!-- Empty Cart Message (if in Cart mode and empty) -->
+        <div
+          id="modalEmptyCartNotice"
+          class="hidden text-center py-8 bg-briella-cream-light rounded-xl border border-briella-cream-dark p-6"
+        >
+          <div
+            class="w-12 h-12 rounded-full bg-briella-cream flex items-center justify-center mx-auto mb-2 text-briella-purple"
+          >
+            <svg
+              class="w-6 h-6 stroke-[1.5]"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+              ></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+          </div>
+          <h4 class="font-serif text-base font-bold text-briella-charcoal">
+            Tu bolsa de compras está vacía
+          </h4>
+          <p
+            class="text-xs text-briella-charcoal/60 max-w-xs mx-auto mt-1 mb-4"
+          >
+            Agrega joyas desde el catálogo para finalizar tu compra.
+          </p>
+          <a
+            href="#catalogo"
+            id="btnModalExploreCatalog"
+            class="inline-block px-5 py-2 rounded-lg bg-briella-purple hover:bg-briella-purple-dark text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-xs"
+          >
+            Ver Catálogo de Joyas
+          </a>
+        </div>
+
+        <!-- Single Product Mode Card -->
+        <div
+          id="modalSingleProductBox"
+          class="flex items-center gap-3.5 p-3 rounded-xl bg-briella-cream border border-briella-cream-dark"
+        >
+          <div
+            class="w-16 h-16 sm:w-18 sm:h-18 rounded-lg overflow-hidden bg-white flex-shrink-0 border border-briella-cream-dark"
+          >
+            <img
+              id="modalProductImg"
+              src=""
+              alt=""
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <div class="flex-1 min-w-0">
+            <span
+              id="modalProductBadge"
+              class="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-briella-purple-light text-briella-purple inline-block mb-1"
+            ></span>
+            <h3
+              id="modalProductTitle"
+              class="font-serif text-sm sm:text-base font-semibold text-briella-charcoal truncate"
+            >
+            </h3>
+            <div
+              class="text-xs font-bold font-sans text-briella-charcoal mt-0.5"
+            >
+              Precio Unitario: <span class="text-briella-purple font-semibold"
+                >S/ <span id="modalProductUnitPrice"></span></span
+              >
+            </div>
+          </div>
+
+          <!-- Quantity Control -->
+          <div
+            class="flex items-center border border-briella-cream-dark bg-white rounded-lg overflow-hidden p-0.5 flex-shrink-0"
+          >
+            <button
+              id="modalQtyMinus"
+              type="button"
+              class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center font-bold text-xs rounded hover:bg-briella-cream active:scale-95 transition-colors"
+              >-</button
+            >
+            <span
+              id="modalQtyDisplay"
+              class="w-6 sm:w-7 text-center text-xs font-bold font-sans">1</span
+            >
+            <button
+              id="modalQtyPlus"
+              type="button"
+              class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center font-bold text-xs rounded hover:bg-briella-cream active:scale-95 transition-colors"
+              >+</button
+            >
+          </div>
+        </div>
+
+        <!-- Multi-Item Cart List Container (Cart Mode) -->
+        <div
+          id="modalCartItemsList"
+          class="hidden space-y-2.5 max-h-56 overflow-y-auto pr-1"
+        >
+          <!-- Injected dynamically by Script -->
+        </div>
+
+        <!-- TOTAL BAR (Orchid Purple Gradient matching brand design) -->
+        <div
+          id="modalStep1TotalBar"
+          class="bg-gradient-to-r from-briella-purple to-briella-purple-dark text-white rounded-xl p-3.5 px-4 flex items-center justify-between shadow-xs"
+        >
+          <span
+            class="text-xs font-bold uppercase tracking-widest text-white/90"
+            >TOTAL A PAGAR:</span
+          >
+          <span class="text-lg sm:text-xl font-bold font-sans text-white"
+            >S/ <span id="modalStep1Total">0.00</span></span
+          >
+        </div>
+
+        <!-- Shipping & Customer Form -->
+        <div id="modalStep1FormFields" class="space-y-3">
+          <div
+            class="text-[11px] font-bold uppercase tracking-wider text-briella-charcoal/80 flex items-center gap-1.5"
+          >
+            <svg
+              class="w-3.5 h-3.5 text-briella-purple stroke-[2]"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
-            <span>Datos para tu Pedido:</span>
+            <span>Datos para la Entrega:</span>
           </div>
 
-          <div class="space-y-2">
-            <input 
-              type="text" 
-              id="modalInputName" 
-              placeholder="Nombre y Apellidos *" 
+          <div>
+            <label
+              for="modalInputName"
+              class="block text-[10px] font-bold uppercase tracking-wider text-briella-charcoal/70 mb-1"
+              >Nombre y Apellidos *</label
+            >
+            <input
+              type="text"
+              id="modalInputName"
+              placeholder="Ej. Camila Morales"
               required
-              class="w-full bg-briella-cream text-xs py-2.5 px-3.5 rounded-xl border border-briella-cream-dark focus:border-briella-blue focus:bg-white outline-none transition-colors"
+              class="w-full bg-[#FAF9F6] text-xs py-2.5 px-3.5 rounded-lg border border-briella-cream-dark focus:border-briella-purple focus:bg-white outline-none transition-colors"
             />
-            
-            <div class="grid grid-cols-2 gap-2">
-              <input 
-                type="text" 
-                id="modalInputDni" 
-                placeholder="DNI / Documento *" 
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div>
+              <label
+                for="modalInputDni"
+                class="block text-[10px] font-bold uppercase tracking-wider text-briella-charcoal/70 mb-1"
+                >DNI / Documento *</label
+              >
+              <input
+                type="text"
+                id="modalInputDni"
+                placeholder="DNI o Cédula"
                 maxlength="12"
                 required
-                class="w-full bg-briella-cream text-xs py-2.5 px-3.5 rounded-xl border border-briella-cream-dark focus:border-briella-blue focus:bg-white outline-none transition-colors"
-              />
-              <input 
-                type="text" 
-                id="modalInputCity" 
-                placeholder="Ciudad / Distrito *" 
-                required
-                class="w-full bg-briella-cream text-xs py-2.5 px-3.5 rounded-xl border border-briella-cream-dark focus:border-briella-blue focus:bg-white outline-none transition-colors"
+                class="w-full bg-[#FAF9F6] text-xs py-2.5 px-3.5 rounded-lg border border-briella-cream-dark focus:border-briella-purple focus:bg-white outline-none transition-colors"
               />
             </div>
-
-            <input 
-              type="text" 
-              id="modalInputAddress" 
-              placeholder="Dirección de Entrega *" 
-              required
-              class="w-full bg-briella-cream text-xs py-2.5 px-3.5 rounded-xl border border-briella-cream-dark focus:border-briella-blue focus:bg-white outline-none transition-colors"
-            />
-
-            <!-- Optional Engraving Note -->
-            <div id="modalCustomNoteBox" class="hidden pt-1">
-              <input 
-                type="text" 
-                id="modalCustomInput" 
-                placeholder="Nombre o Grabado deseado (Ej. 'Neyh', fecha)..." 
-                class="w-full bg-briella-cream text-xs py-2.5 px-3.5 rounded-xl border border-briella-cream-dark focus:border-briella-blue focus:bg-white outline-none transition-colors"
+            <div>
+              <label
+                for="modalInputPhone"
+                class="block text-[10px] font-bold uppercase tracking-wider text-briella-charcoal/70 mb-1"
+                >Teléfono / WhatsApp *</label
+              >
+              <input
+                type="tel"
+                id="modalInputPhone"
+                placeholder="Ej. 984018633"
+                required
+                class="w-full bg-[#FAF9F6] text-xs py-2.5 px-3.5 rounded-lg border border-briella-cream-dark focus:border-briella-purple focus:bg-white outline-none transition-colors"
               />
             </div>
           </div>
 
-          <p id="modalFormError" class="hidden text-[11px] text-red-600 font-medium">
-            Por favor ingresa tu Nombre, DNI y Dirección para continuar.
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div>
+              <label
+                for="modalInputCity"
+                class="block text-[10px] font-bold uppercase tracking-wider text-briella-charcoal/70 mb-1"
+                >Ciudad / Distrito *</label
+              >
+              <input
+                type="text"
+                id="modalInputCity"
+                placeholder="Ej. Piura / Miraflores, Lima"
+                required
+                class="w-full bg-[#FAF9F6] text-xs py-2.5 px-3.5 rounded-lg border border-briella-cream-dark focus:border-briella-purple focus:bg-white outline-none transition-colors"
+              />
+            </div>
+            <div>
+              <label
+                for="modalInputAddress"
+                class="block text-[10px] font-bold uppercase tracking-wider text-briella-charcoal/70 mb-1"
+                >Dirección de Entrega *</label
+              >
+              <input
+                type="text"
+                id="modalInputAddress"
+                placeholder="Av. / Calle, Nro, Dpto"
+                required
+                class="w-full bg-[#FAF9F6] text-xs py-2.5 px-3.5 rounded-lg border border-briella-cream-dark focus:border-briella-purple focus:bg-white outline-none transition-colors"
+              />
+            </div>
+          </div>
+
+          <!-- Optional Engraving Note -->
+          <div id="modalCustomNoteBox" class="hidden">
+            <label
+              for="modalCustomInput"
+              class="block text-[10px] font-bold uppercase tracking-wider text-briella-charcoal/70 mb-1"
+              >Nombre o Grabado deseado (Opcional)</label
+            >
+            <input
+              type="text"
+              id="modalCustomInput"
+              placeholder="Ej. 'Neyh', fecha o iniciales..."
+              class="w-full bg-[#FAF9F6] text-xs py-2.5 px-3.5 rounded-lg border border-briella-cream-dark focus:border-briella-purple focus:bg-white outline-none transition-colors"
+            />
+          </div>
+
+          <p
+            id="modalStep1Error"
+            class="hidden text-[11px] text-red-600 font-bold bg-red-50 p-2.5 rounded-lg border border-red-200"
+          >
+            Por favor ingresa tu Nombre, DNI, Teléfono y Dirección para
+            continuar al pago.
           </p>
         </div>
 
+        <!-- Actions Step 1 -->
+        <div
+          id="modalStep1Actions"
+          class="pt-3 border-t border-briella-cream-dark space-y-2"
+        >
+          <button
+            id="btnModalGoToStep2"
+            type="button"
+            class="w-full bg-briella-purple hover:bg-briella-purple-dark active:scale-[0.98] text-white py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-widest transition-all shadow-md flex items-center justify-center gap-2"
+          >
+            <span>CONTINUAR AL PAGO</span>
+            <svg
+              class="w-4 h-4 stroke-[2]"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+
+          <!-- Short concise Add to Cart button -->
+          <button
+            id="btnModalAddToCart"
+            type="button"
+            class="w-full bg-briella-cream hover:bg-briella-cream-dark active:scale-[0.98] text-briella-charcoal border border-briella-cream-dark py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+          >
+            <svg
+              class="w-3.5 h-3.5 stroke-[1.5]"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+              ></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <span>Añadir a la Bolsa</span>
+          </button>
+        </div>
       </div>
 
-      <!-- Action Buttons -->
-      <div class="space-y-2 pt-3 border-t border-briella-cream-dark">
-        <!-- Main Direct Order WhatsApp Button -->
-        <button 
-          id="btnModalDirectWaSubmit" 
-          type="button"
-          class="w-full bg-briella-whatsapp hover:bg-briella-whatsapp-dark active:scale-[0.98] text-white py-3 px-4 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all shadow-wa flex items-center justify-center gap-2"
+      <!-- ============================================== -->
+      <!-- PASO 2: PAGO, YAPE/PLIN & VOUCHER              -->
+      <!-- ============================================== -->
+      <div id="modalStep2Content" class="hidden space-y-4">
+        <!-- Order Summary Box -->
+        <div
+          class="border border-briella-cream-dark rounded-xl p-3 bg-white shadow-xs"
         >
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.04 3.67C16.58 3.67 20.28 7.37 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15M16.57 14.45C16.32 14.32 15.1 13.72 14.87 13.64C14.64 13.55 14.48 13.51 14.31 13.76C14.15 14.01 13.67 14.57 13.52 14.73C13.38 14.9 13.23 14.92 12.98 14.8C12.73 14.67 11.93 14.41 10.98 13.57C10.24 12.91 9.74 12.1 9.6 11.85C9.45 11.6 9.58 11.47 9.71 11.34C9.82 11.23 9.96 11.05 10.09 10.91C10.21 10.76 10.26 10.66 10.34 10.5C10.42 10.33 10.38 10.19 10.32 10.07C10.26 9.94 9.77 8.74 9.56 8.25C9.36 7.76 9.16 7.83 9.01 7.82C8.87 7.81 8.71 7.81 8.54 7.81C8.38 7.81 8.11 7.87 7.88 8.12C7.65 8.37 7 8.98 7 10.21C7 11.44 7.9 12.63 8.02 12.79C8.15 12.96 9.78 15.47 12.28 16.55C12.87 16.81 13.33 16.96 13.69 17.07C14.29 17.26 14.83 17.23 15.26 17.17C15.74 17.1 16.74 16.57 16.95 15.99C17.15 15.41 17.15 14.92 17.09 14.8C17.03 14.7 16.82 14.57 16.57 14.45Z"/>
-          </svg>
-          <span>Confirmar y Comprar por WhatsApp</span>
-        </button>
+          <div
+            class="flex items-center justify-between pb-2 mb-2 border-b border-briella-cream-dark/60"
+          >
+            <span
+              class="text-[10px] uppercase font-bold tracking-wider text-briella-charcoal/70 flex items-center gap-1.5"
+            >
+              <svg
+                class="w-3.5 h-3.5 text-briella-purple"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                ></path>
+              </svg>
+              RESUMEN DEL PEDIDO
+            </span>
+            <span class="text-[10px] text-briella-charcoal/50 font-semibold"
+              >PASO 2 DE 3</span
+            >
+          </div>
 
-        <!-- Secondary Add to Cart Button -->
-        <button 
-          id="btnModalAddToCart" 
-          type="button" 
-          class="w-full bg-briella-cream hover:bg-briella-cream-dark active:scale-[0.98] text-briella-charcoal border border-briella-cream-dark py-2.5 px-4 rounded-2xl text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+          <div
+            id="modalStep2ItemsList"
+            class="space-y-2 max-h-36 overflow-y-auto pr-1"
+          >
+            <!-- Dynamic items summary list -->
+          </div>
+        </div>
+
+        <!-- TOTAL BAR (Orchid Purple Gradient) -->
+        <div
+          class="bg-gradient-to-r from-briella-purple to-briella-purple-dark text-white rounded-xl p-3.5 px-4 flex items-center justify-between shadow-xs"
         >
-          <svg class="w-3.5 h-3.5 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <path d="M16 10a4 4 0 0 1-8 0"></path>
-          </svg>
-          <span>Guardar en mi Bolsa de Compras</span>
-        </button>
+          <span
+            class="text-xs font-bold uppercase tracking-widest text-white/90"
+            >TOTAL A PAGAR</span
+          >
+          <span class="text-lg sm:text-xl font-bold font-sans text-white"
+            >S/ <span id="modalStep2GrandTotal">0.00</span></span
+          >
+        </div>
+
+        <!-- MODO DEMOSTRACIÓN (Demo Bypass) -->
+        <div
+          class="bg-briella-cream-light border border-briella-cream-dark rounded-xl p-3.5 space-y-2"
+        >
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
+              ></span>
+              <span
+                class="text-[11px] font-bold uppercase tracking-wider text-briella-charcoal"
+                >MODO DEMOSTRACIÓN</span
+              >
+            </div>
+          </div>
+          <p class="text-[11px] text-briella-charcoal/70 leading-relaxed">
+            ¿Estás probando esta demo? Dale clic para simular el pago y
+            comprobante automáticamente.
+          </p>
+          <button
+            id="btnModalAutoFillVoucher"
+            type="button"
+            class="w-full bg-white hover:bg-briella-cream active:scale-[0.99] border border-briella-cream-dark py-2 px-3 rounded-lg text-xs font-bold uppercase tracking-wider text-briella-charcoal transition-all flex items-center justify-center gap-1.5 shadow-xs"
+          >
+            <svg
+              class="w-3.5 h-3.5 text-amber-500 fill-current"
+              viewBox="0 0 24 24"
+            >
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+            </svg>
+            <span>AUTOCOMPLETAR VOUCHER</span>
+          </button>
+        </div>
+
+        <!-- PAGAR CON YAPE O PLIN Card -->
+        <div
+          class="bg-white border border-briella-cream-dark rounded-xl p-3.5 space-y-3 shadow-xs"
+        >
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <svg
+                class="w-4 h-4 text-briella-purple"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+              <span
+                class="text-[11px] font-bold uppercase tracking-wider text-briella-charcoal"
+                >PAGAR CON YAPE O PLIN</span
+              >
+            </div>
+            <span
+              class="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-briella-cream text-briella-charcoal/70"
+            >
+              TITULAR: SM JOYERÍA
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+            <!-- QR Graphic -->
+            <div
+              class="sm:col-span-4 bg-[#FAF9F6] border border-briella-cream-dark rounded-lg p-2 flex flex-col items-center justify-center text-center"
+            >
+              <div
+                class="w-18 h-18 bg-white p-1 rounded border border-briella-cream-dark flex items-center justify-center"
+              >
+                <svg
+                  class="w-full h-full text-briella-charcoal"
+                  viewBox="0 0 33 33"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M0 0h9v9H0zM2 2h5v5H2zM24 0h9v9h-9zM26 2h5v5h-5zM0 24h9v9H0zM2 26h5v5H2zM12 2h2v4h-2zM16 0h2v6h-2zM12 8h6v2h-6zM4 12h4v2H4zM0 16h6v2H0zM8 16h4v2H8zM14 12h4v4h-4zM2 20h2v2H2zM20 12h4v2h-4zM26 12h2v4h-2zM30 12h3v2h-3zM24 16h4v2h-4zM20 18h2v4h-2zM16 20h2v4h-2zM24 20h2v2h-2zM28 20h4v2h-4zM12 24h2v2h-2zM18 24h4v2h-4zM14 28h2v5h-2zM20 28h2v2h-2zM24 26h2v4h-2zM28 26h2v2h-2zM30 30h3v3h-3zM26 31h2v2h-2zM20 32h2v1h-2z"
+                  ></path>
+                </svg>
+              </div>
+              <span
+                class="text-[9px] font-bold uppercase tracking-wider text-briella-charcoal/60 mt-1"
+                >ESCANEAR QR</span
+              >
+            </div>
+
+            <!-- Number & Copy Box -->
+            <div class="sm:col-span-8 space-y-2">
+              <div
+                class="bg-[#FAF9F6] border border-briella-cream-dark rounded-lg p-2.5 flex items-center justify-between"
+              >
+                <div>
+                  <span
+                    class="text-[9px] font-bold uppercase tracking-wider text-briella-charcoal/50 block"
+                    >YAPE / PLIN</span
+                  >
+                  <span
+                    class="text-sm sm:text-base font-bold font-sans text-briella-charcoal tracking-wide"
+                    >984 018 633</span
+                  >
+                </div>
+                <button
+                  id="btnModalCopyNumber"
+                  type="button"
+                  class="px-2.5 py-1.5 bg-white hover:bg-briella-cream active:scale-95 border border-briella-cream-dark rounded-md text-xs font-bold uppercase tracking-wider text-briella-charcoal transition-all flex items-center gap-1 shadow-xs"
+                >
+                  <svg
+                    class="w-3.5 h-3.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"
+                    ></rect>
+                    <path
+                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                    ></path>
+                  </svg>
+                  <span id="copyBtnText">COPIAR</span>
+                </button>
+              </div>
+              <p class="text-[10px] text-briella-charcoal/60 leading-tight">
+                También aceptamos transferencias a cuentas BCP, BBVA o
+                Interbank. Si requieres número de cuenta, solicítala por
+                WhatsApp.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- NÚMERO DE OPERACIÓN -->
+        <div>
+          <label
+            for="modalInputOpNumber"
+            class="block text-[10px] font-bold uppercase tracking-wider text-briella-charcoal/70 mb-1"
+          >
+            # NÚMERO DE OPERACIÓN
+          </label>
+          <input
+            type="text"
+            id="modalInputOpNumber"
+            placeholder="EJ: 98324 Ó DEMO-..."
+            class="w-full bg-[#FAF9F6] text-xs py-2.5 px-3.5 rounded-lg border border-briella-cream-dark focus:border-briella-purple focus:bg-white outline-none transition-colors uppercase font-mono"
+          />
+        </div>
+
+        <!-- COMPROBANTE DE PAGO -->
+        <div>
+          <label
+            class="block text-[10px] font-bold uppercase tracking-wider text-briella-charcoal/70 mb-1"
+          >
+            COMPROBANTE DE PAGO
+          </label>
+          <label
+            id="modalVoucherDropzone"
+            class="w-full border-2 border-dashed border-briella-cream-dark hover:border-briella-purple bg-[#FAF9F6] rounded-xl p-3.5 flex flex-col items-center justify-center cursor-pointer transition-colors text-center"
+          >
+            <input
+              type="file"
+              id="modalVoucherFileInput"
+              accept="image/*"
+              class="hidden"
+            />
+            <div
+              id="modalVoucherEmptyState"
+              class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-briella-charcoal/70"
+            >
+              <svg
+                class="w-4 h-4 text-briella-purple stroke-[2]"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <span>ADJUNTAR VOUCHER</span>
+            </div>
+            <div
+              id="modalVoucherAttachedState"
+              class="hidden items-center gap-2 text-xs font-bold text-emerald-600"
+            >
+              <svg
+                class="w-4 h-4 stroke-[2.5]"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span id="modalVoucherFileName"
+                >Voucher adjunto correctamente</span
+              >
+            </div>
+          </label>
+        </div>
+
+        <p
+          id="modalStep2Error"
+          class="hidden text-[11px] text-red-600 font-bold bg-red-50 p-2.5 rounded-lg border border-red-200"
+        >
+          Por favor ingresa el número de operación o adjunta tu comprobante para
+          confirmar el pedido.
+        </p>
+
+        <!-- Actions Step 2 -->
+        <div
+          class="grid grid-cols-2 gap-3 pt-3 border-t border-briella-cream-dark"
+        >
+          <button
+            id="btnModalBackToStep1"
+            type="button"
+            class="py-2.5 px-4 rounded-xl bg-briella-cream hover:bg-briella-cream-dark text-briella-charcoal text-xs font-bold uppercase tracking-wider text-center transition-colors active:scale-95"
+          >
+            ATRÁS
+          </button>
+
+          <button
+            id="btnModalConfirmPayment"
+            type="button"
+            class="py-2.5 px-4 rounded-xl bg-briella-purple hover:bg-briella-purple-dark text-white text-xs font-bold uppercase tracking-wider text-center shadow-md transition-all active:scale-[0.98]"
+          >
+            CONFIRMAR PEDIDO
+          </button>
+        </div>
       </div>
 
+      <!-- ============================================== -->
+      <!-- PASO 3: CONFIRMACIÓN DE ÉXITO                  -->
+      <!-- ============================================== -->
+      <div
+        id="modalStep3Content"
+        class="hidden flex-col items-center text-center py-6 sm:py-8 space-y-4"
+      >
+        <!-- Big Checkmark Circle -->
+        <div
+          class="w-14 h-14 rounded-full bg-briella-purple text-white flex items-center justify-center shadow-md animate-bounce"
+        >
+          <svg
+            class="w-7 h-7 stroke-[3]"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+
+        <!-- Success Title -->
+        <div class="space-y-1">
+          <h3
+            class="font-serif text-2xl sm:text-3xl font-bold text-briella-charcoal"
+          >
+            ¡Pedido Recibido con Éxito!
+          </h3>
+          <p
+            class="text-xs sm:text-sm text-briella-charcoal/70 max-w-md mx-auto leading-relaxed"
+          >
+            Gracias por tu compra en <strong class="text-briella-charcoal"
+              >SM JOYERÍA</strong
+            >. Hemos registrado tu pedido y prepararemos el despacho a tu
+            domicilio.
+          </p>
+        </div>
+
+        <!-- Order Code Box -->
+        <div
+          class="w-full max-w-sm bg-briella-cream rounded-xl border border-briella-cream-dark p-3.5 shadow-xs"
+        >
+          <span
+            class="text-[10px] font-bold uppercase tracking-widest text-briella-charcoal/60 block mb-0.5"
+          >
+            CÓDIGO DE PEDIDO
+          </span>
+          <span
+            id="modalGeneratedOrderCode"
+            class="text-xl sm:text-2xl font-extrabold font-mono text-briella-purple tracking-widest"
+          >
+            SM-VOWLREEA
+          </span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="w-full max-w-sm space-y-2.5 pt-2">
+          <!-- WhatsApp Send Confirmation Button -->
+          <a
+            id="btnModalSendWhatsAppConfirmation"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full bg-[#25D366] hover:bg-[#1EBE5D] text-white py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-wa flex items-center justify-center gap-2 active:scale-95"
+          >
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path
+                d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.04 3.67C16.58 3.67 20.28 7.37 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15M16.57 14.45C16.32 14.32 15.1 13.72 14.87 13.64C14.64 13.55 14.48 13.51 14.31 13.76C14.15 14.01 13.67 14.57 13.52 14.73C13.38 14.9 13.23 14.92 12.98 14.8C12.73 14.67 11.93 14.41 10.98 13.57C10.24 12.91 9.74 12.1 9.6 11.85C9.45 11.6 9.58 11.47 9.71 11.34C9.82 11.23 9.96 11.05 10.09 10.91C10.21 10.76 10.26 10.66 10.34 10.5C10.42 10.33 10.38 10.19 10.32 10.07C10.26 9.94 9.77 8.74 9.56 8.25C9.36 7.76 9.16 7.83 9.01 7.82C8.87 7.81 8.71 7.81 8.54 7.81C8.38 7.81 8.11 7.87 7.88 8.12C7.65 8.37 7.0 8.98 7.0 10.21C7.0 11.44 7.9 12.63 8.02 12.79C8.15 12.96 9.78 15.47 12.28 16.55C12.87 16.81 13.33 16.96 13.69 17.07C14.29 17.26 14.83 17.23 15.26 17.17C15.74 17.1 16.74 16.57 16.95 15.99C17.15 15.41 17.15 14.92 17.09 14.8C17.03 14.7 16.82 14.57 16.57 14.45Z"
+              ></path>
+            </svg>
+            <span>ENVIAR CONFIRMACIÓN A WHATSAPP</span>
+          </a>
+
+          <!-- Return to Store -->
+          <button
+            id="btnModalFinishClose"
+            type="button"
+            class="w-full bg-white hover:bg-briella-cream border border-briella-cream-dark py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider text-briella-charcoal transition-colors active:scale-95"
+          >
+            VOLVER A LA TIENDA
+          </button>
+        </div>
+      </div>
     </div>
-
   </div>
 </div>
 
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
-    let currentProduct = null;
-    let currentQty = 1;
+  document.addEventListener("DOMContentLoaded", () => {
+    let currentMode = "single"; // 'single' or 'cart'
+    let currentSingleProduct = null;
+    let currentSingleQty = 1;
+    let currentStep = 1;
+    let generatedOrderCode = "";
+    const waNumber = "51984018633";
 
-    const modal = document.getElementById('productDetailModal');
-    const btnClose = document.getElementById('btnModalClose');
-    const imgEl = document.getElementById('modalProductImg');
-    const badgeEl = document.getElementById('modalProductBadge');
-    const categoryEl = document.getElementById('modalProductCategory');
-    const titleEl = document.getElementById('modalProductTitle');
-    const priceEl = document.getElementById('modalProductPrice');
-    const customBox = document.getElementById('modalCustomNoteBox');
-    const customInput = document.getElementById('modalCustomInput');
-    const qtyDisplay = document.getElementById('modalQtyDisplay');
-    const qtyMinus = document.getElementById('modalQtyMinus');
-    const qtyPlus = document.getElementById('modalQtyPlus');
-    const btnAdd = document.getElementById('btnModalAddToCart');
-    const btnWaSubmit = document.getElementById('btnModalDirectWaSubmit');
+    // Global Cart State
+    let cartItems = [];
 
-    const inputName = document.getElementById('modalInputName');
-    const inputDni = document.getElementById('modalInputDni');
-    const inputCity = document.getElementById('modalInputCity');
-    const inputAddress = document.getElementById('modalInputAddress');
-    const formError = document.getElementById('modalFormError');
+    function loadCart() {
+      try {
+        const saved =
+          localStorage.getItem("sm_joyeria_cart_v1") ||
+          localStorage.getItem("briella_cart_astro_v1");
+        if (saved) cartItems = JSON.parse(saved);
+      } catch (e) {
+        cartItems = [];
+      }
+      updateCartHeaderBadges();
+    }
 
-    window.openProductModal = function(product) {
-      currentProduct = product;
-      currentQty = 1;
-      if (qtyDisplay) qtyDisplay.textContent = '1';
-      if (formError) formError.classList.add('hidden');
+    function saveCart() {
+      try {
+        localStorage.setItem("sm_joyeria_cart_v1", JSON.stringify(cartItems));
+      } catch (e) {}
+      updateCartHeaderBadges();
+    }
 
+    function updateCartHeaderBadges() {
+      const totalCount = cartItems.reduce((s, it) => s + it.qty, 0);
+      const subtotal = cartItems.reduce((s, it) => s + it.precio * it.qty, 0);
+
+      const headerCount = document.getElementById("cartBadgeCount");
+      const mobileBarCount = document.getElementById("mobileBarCartBadge");
+      const headerTotal = document.getElementById("headerCartTotalText");
+
+      if (headerCount) headerCount.textContent = totalCount;
+      if (mobileBarCount) mobileBarCount.textContent = totalCount;
+      if (headerTotal) headerTotal.textContent = `S/ ${subtotal.toFixed(2)}`;
+    }
+
+    // Modal elements
+    const modal = document.getElementById("productDetailModal");
+    const mainTitle = document.getElementById("checkoutModalMainTitle");
+    const btnClose = document.getElementById("btnModalClose");
+    const stepperBar = document.getElementById("modalStepperBar");
+
+    // Single item elements
+    const singleProductBox = document.getElementById("modalSingleProductBox");
+    const imgEl = document.getElementById("modalProductImg");
+    const badgeEl = document.getElementById("modalProductBadge");
+    const titleEl = document.getElementById("modalProductTitle");
+    const unitPriceEl = document.getElementById("modalProductUnitPrice");
+    const customBox = document.getElementById("modalCustomNoteBox");
+    const customInput = document.getElementById("modalCustomInput");
+    const qtyDisplay = document.getElementById("modalQtyDisplay");
+    const qtyMinus = document.getElementById("modalQtyMinus");
+    const qtyPlus = document.getElementById("modalQtyPlus");
+    const btnAddToCart = document.getElementById("btnModalAddToCart");
+
+    // Cart mode elements
+    const emptyCartNotice = document.getElementById("modalEmptyCartNotice");
+    const cartItemsList = document.getElementById("modalCartItemsList");
+    const step1FormFields = document.getElementById("modalStep1FormFields");
+    const step1Actions = document.getElementById("modalStep1Actions");
+    const step1TotalBar = document.getElementById("modalStep1TotalBar");
+    const step1TotalEl = document.getElementById("modalStep1Total");
+    const btnExploreCatalog = document.getElementById("btnModalExploreCatalog");
+
+    // Stepper elements
+    const stepperCircle1 = document.getElementById("stepperCircle1");
+    const stepperCheck1 = document.getElementById("stepperCheck1");
+    const stepperNum1 = document.getElementById("stepperNum1");
+    const stepperLine1 = document.getElementById("stepperLine1");
+
+    const stepperCircle2 = document.getElementById("stepperCircle2");
+    const stepperCheck2 = document.getElementById("stepperCheck2");
+    const stepperCard2 = document.getElementById("stepperCard2");
+    const stepperLine2 = document.getElementById("stepperLine2");
+
+    const stepperCircle3 = document.getElementById("stepperCircle3");
+    const stepperText1 = document.getElementById("stepperText1");
+    const stepperText2 = document.getElementById("stepperText2");
+    const stepperText3 = document.getElementById("stepperText3");
+
+    // Step contents
+    const step1Content = document.getElementById("modalStep1Content");
+    const step2Content = document.getElementById("modalStep2Content");
+    const step3Content = document.getElementById("modalStep3Content");
+
+    // Step 1 Form
+    const inputName = document.getElementById("modalInputName");
+    const inputDni = document.getElementById("modalInputDni");
+    const inputPhone = document.getElementById("modalInputPhone");
+    const inputCity = document.getElementById("modalInputCity");
+    const inputAddress = document.getElementById("modalInputAddress");
+    const step1Error = document.getElementById("modalStep1Error");
+    const btnGoToStep2 = document.getElementById("btnModalGoToStep2");
+
+    // Step 2 elements
+    const step2ItemsList = document.getElementById("modalStep2ItemsList");
+    const step2GrandTotal = document.getElementById("modalStep2GrandTotal");
+    const btnAutoFill = document.getElementById("btnModalAutoFillVoucher");
+    const btnCopyNumber = document.getElementById("btnModalCopyNumber");
+    const copyBtnText = document.getElementById("copyBtnText");
+    const inputOpNumber = document.getElementById("modalInputOpNumber");
+    const voucherFileInput = document.getElementById("modalVoucherFileInput");
+    const voucherEmptyState = document.getElementById("modalVoucherEmptyState");
+    const voucherAttachedState = document.getElementById(
+      "modalVoucherAttachedState",
+    );
+    const voucherFileName = document.getElementById("modalVoucherFileName");
+    const step2Error = document.getElementById("modalStep2Error");
+    const btnBackToStep1 = document.getElementById("btnModalBackToStep1");
+    const btnConfirmPayment = document.getElementById("btnModalConfirmPayment");
+
+    // Step 3 elements
+    const orderCodeDisplay = document.getElementById("modalGeneratedOrderCode");
+    const btnSendWhatsApp = document.getElementById(
+      "btnModalSendWhatsAppConfirmation",
+    );
+    const btnFinishClose = document.getElementById("btnModalFinishClose");
+
+    function generateCode() {
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      let res = "SM-";
+      for (let i = 0; i < 7; i++) {
+        res += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return res;
+    }
+
+    function calculateTotal() {
+      if (currentMode === "single") {
+        return currentSingleProduct
+          ? (currentSingleProduct.precio * currentSingleQty).toFixed(2)
+          : "0.00";
+      } else {
+        return cartItems
+          .reduce((s, it) => s + it.precio * it.qty, 0)
+          .toFixed(2);
+      }
+    }
+
+    function renderCartItems() {
+      if (!cartItemsList) return;
+
+      if (cartItems.length === 0) {
+        if (emptyCartNotice) emptyCartNotice.classList.remove("hidden");
+        if (cartItemsList) cartItemsList.classList.add("hidden");
+        if (step1TotalBar) step1TotalBar.classList.add("hidden");
+        if (step1FormFields) step1FormFields.classList.add("hidden");
+        if (step1Actions) step1Actions.classList.add("hidden");
+        return;
+      }
+
+      if (emptyCartNotice) emptyCartNotice.classList.add("hidden");
+      if (cartItemsList) cartItemsList.classList.remove("hidden");
+      if (step1TotalBar) step1TotalBar.classList.remove("hidden");
+      if (step1FormFields) step1FormFields.classList.remove("hidden");
+      if (step1Actions) step1Actions.classList.remove("hidden");
+
+      cartItemsList.innerHTML = cartItems
+        .map(
+          (it, idx) => `
+        <div class="flex items-center gap-3 p-2.5 rounded-xl bg-[#FAF9F6] border border-briella-cream-dark">
+          <img src="${it.imagen}" alt="${it.nombre}" class="w-12 h-12 object-cover rounded-lg border border-briella-cream-dark bg-white flex-shrink-0" />
+          
+          <div class="flex-1 min-w-0">
+            <h4 class="font-serif text-xs font-bold text-briella-charcoal truncate">${it.nombre}</h4>
+            <span class="text-[9px] text-briella-purple font-bold uppercase tracking-wider block">${it.material}</span>
+            ${it.customNote ? `<span class="text-[9px] bg-briella-lavender text-briella-lavender-dark px-1.5 py-0.5 rounded inline-block font-medium">"${it.customNote}"</span>` : ""}
+            <div class="text-xs font-bold font-sans text-briella-charcoal mt-0.5">S/ ${(it.precio * it.qty).toFixed(2)}</div>
+          </div>
+
+          <div class="flex flex-col items-end gap-1.5">
+            <button type="button" class="btn-remove-cart-item text-briella-charcoal/50 hover:text-red-600 text-sm font-bold w-5 h-5 flex items-center justify-center rounded hover:bg-red-50" data-index="${idx}">&times;</button>
+            <div class="flex items-center border border-briella-cream-dark bg-white rounded-lg overflow-hidden p-0.5">
+              <button type="button" class="btn-cart-minus w-5 h-5 flex items-center justify-center font-bold text-[10px] rounded hover:bg-briella-cream" data-index="${idx}">-</button>
+              <span class="w-5 text-center text-[10px] font-bold font-sans">${it.qty}</span>
+              <button type="button" class="btn-cart-plus w-5 h-5 flex items-center justify-center font-bold text-[10px] rounded hover:bg-briella-cream" data-index="${idx}">+</button>
+            </div>
+          </div>
+        </div>
+      `,
+        )
+        .join("");
+
+      // Bind dynamic remove/qty
+      cartItemsList.querySelectorAll(".btn-remove-cart-item").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const idx = parseInt(btn.dataset.index, 10);
+          cartItems.splice(idx, 1);
+          saveCart();
+          renderCartItems();
+          updateTotalDisplays();
+        });
+      });
+
+      cartItemsList.querySelectorAll(".btn-cart-minus").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const idx = parseInt(btn.dataset.index, 10);
+          if (cartItems[idx]) {
+            if (cartItems[idx].qty > 1) {
+              cartItems[idx].qty--;
+            } else {
+              cartItems.splice(idx, 1);
+            }
+            saveCart();
+            renderCartItems();
+            updateTotalDisplays();
+          }
+        });
+      });
+
+      cartItemsList.querySelectorAll(".btn-cart-plus").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const idx = parseInt(btn.dataset.index, 10);
+          if (cartItems[idx]) {
+            cartItems[idx].qty++;
+            saveCart();
+            renderCartItems();
+            updateTotalDisplays();
+          }
+        });
+      });
+    }
+
+    function updateTotalDisplays() {
+      const tot = calculateTotal();
+      if (step1TotalEl) step1TotalEl.textContent = tot;
+      if (step2GrandTotal) step2GrandTotal.textContent = tot;
+      if (currentSingleProduct && unitPriceEl) {
+        unitPriceEl.textContent = currentSingleProduct.precio.toFixed(2);
+      }
+    }
+
+    function setStep(step) {
+      currentStep = step;
+      if (step1Error) step1Error.classList.add("hidden");
+      if (step2Error) step2Error.classList.add("hidden");
+
+      if (step === 1) {
+        if (step1Content) step1Content.classList.remove("hidden");
+        if (step2Content) step2Content.classList.add("hidden");
+        if (step3Content) step3Content.classList.add("hidden");
+
+        // Stepper 1 Active
+        stepperCircle1.className =
+          "w-7 h-7 rounded-full bg-briella-purple text-white flex items-center justify-center text-xs font-bold transition-all shadow-xs";
+        stepperCheck1.classList.add("hidden");
+        stepperNum1.classList.remove("hidden");
+        stepperLine1.style.width = "0%";
+        stepperText1.className =
+          "text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-briella-charcoal";
+
+        // Stepper 2 Inactive
+        stepperCircle2.className =
+          "w-7 h-7 rounded-full bg-briella-cream-dark text-briella-charcoal/60 flex items-center justify-center text-xs font-bold transition-all";
+        stepperCheck2.classList.add("hidden");
+        stepperCard2.classList.remove("hidden");
+        stepperLine2.style.width = "0%";
+        stepperText2.className =
+          "text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-briella-charcoal/50";
+
+        // Stepper 3 Inactive
+        stepperCircle3.className =
+          "w-7 h-7 rounded-full bg-briella-cream-dark text-briella-charcoal/60 flex items-center justify-center text-xs font-bold transition-all";
+        stepperText3.className =
+          "text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-briella-charcoal/50";
+
+        updateTotalDisplays();
+      } else if (step === 2) {
+        if (step1Content) step1Content.classList.add("hidden");
+        if (step2Content) step2Content.classList.remove("hidden");
+        if (step3Content) step3Content.classList.add("hidden");
+
+        // Stepper 1 Done
+        stepperCircle1.className =
+          "w-7 h-7 rounded-full bg-briella-purple text-white flex items-center justify-center text-xs font-bold transition-all shadow-xs";
+        stepperNum1.classList.add("hidden");
+        stepperCheck1.classList.remove("hidden");
+        stepperLine1.style.width = "100%";
+        stepperText1.className =
+          "text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-briella-charcoal";
+
+        // Stepper 2 Active
+        stepperCircle2.className =
+          "w-7 h-7 rounded-full bg-briella-purple text-white flex items-center justify-center text-xs font-bold transition-all shadow-xs";
+        stepperCheck2.classList.add("hidden");
+        stepperCard2.classList.remove("hidden");
+        stepperLine2.style.width = "0%";
+        stepperText2.className =
+          "text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-briella-charcoal";
+
+        // Stepper 3 Inactive
+        stepperCircle3.className =
+          "w-7 h-7 rounded-full bg-briella-cream-dark text-briella-charcoal/60 flex items-center justify-center text-xs font-bold transition-all";
+        stepperText3.className =
+          "text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-briella-charcoal/50";
+
+        // Render Step 2 items breakdown
+        if (step2ItemsList) {
+          if (currentMode === "single" && currentSingleProduct) {
+            step2ItemsList.innerHTML = `
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <img src="${currentSingleProduct.imagen}" alt="${currentSingleProduct.nombre}" class="w-10 h-10 rounded-lg object-cover bg-briella-cream border border-briella-cream-dark" />
+                  <div>
+                    <h4 class="font-serif text-xs font-bold text-briella-charcoal truncate max-w-[200px]">${currentSingleProduct.nombre}</h4>
+                    <span class="text-[10px] text-briella-charcoal/60">${currentSingleQty} x S/ ${currentSingleProduct.precio.toFixed(2)}</span>
+                  </div>
+                </div>
+                <span class="text-xs font-bold font-sans text-briella-charcoal">S/ ${(currentSingleProduct.precio * currentSingleQty).toFixed(2)}</span>
+              </div>
+            `;
+          } else {
+            step2ItemsList.innerHTML = cartItems
+              .map(
+                (it) => `
+              <div class="flex items-center justify-between py-1 border-b border-neutral-100 last:border-0">
+                <div class="flex items-center gap-2">
+                  <img src="${it.imagen}" alt="${it.nombre}" class="w-8 h-8 rounded-md object-cover bg-briella-cream border border-briella-cream-dark" />
+                  <div>
+                    <h4 class="font-serif text-[11px] font-bold text-briella-charcoal truncate max-w-[170px]">${it.nombre}</h4>
+                    <span class="text-[9px] text-briella-charcoal/60">${it.qty} x S/ ${it.precio.toFixed(2)}</span>
+                  </div>
+                </div>
+                <span class="text-xs font-bold font-sans text-briella-charcoal">S/ ${(it.precio * it.qty).toFixed(2)}</span>
+              </div>
+            `,
+              )
+              .join("");
+          }
+        }
+
+        updateTotalDisplays();
+      } else if (step === 3) {
+        if (step1Content) step1Content.classList.add("hidden");
+        if (step2Content) step2Content.classList.add("hidden");
+        if (step3Content) {
+          step3Content.classList.remove("hidden");
+          step3Content.classList.add("flex");
+        }
+
+        // Steppers all Done
+        stepperCircle1.className =
+          "w-7 h-7 rounded-full bg-briella-purple text-white flex items-center justify-center text-xs font-bold";
+        stepperNum1.classList.add("hidden");
+        stepperCheck1.classList.remove("hidden");
+        stepperLine1.style.width = "100%";
+
+        stepperCircle2.className =
+          "w-7 h-7 rounded-full bg-briella-purple text-white flex items-center justify-center text-xs font-bold";
+        stepperCard2.classList.add("hidden");
+        stepperCheck2.classList.remove("hidden");
+        stepperLine2.style.width = "100%";
+
+        stepperCircle3.className =
+          "w-7 h-7 rounded-full bg-briella-purple text-white flex items-center justify-center text-xs font-bold";
+        stepperText3.className =
+          "text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-briella-charcoal";
+
+        generatedOrderCode = generateCode();
+        if (orderCodeDisplay) orderCodeDisplay.textContent = generatedOrderCode;
+
+        buildWhatsAppMessage();
+
+        // Clear cart if completed in cart mode
+        if (currentMode === "cart") {
+          cartItems = [];
+          saveCart();
+        }
+      }
+    }
+
+    window.openProductModal = function (product) {
+      currentMode = "single";
+      currentSingleProduct = product;
+      currentSingleQty = 1;
+
+      if (mainTitle) mainTitle.textContent = "FINALIZAR COMPRA — SM JOYERÍA";
+      if (singleProductBox) singleProductBox.classList.remove("hidden");
+      if (cartItemsList) cartItemsList.classList.add("hidden");
+      if (emptyCartNotice) emptyCartNotice.classList.add("hidden");
+      if (btnAddToCart) btnAddToCart.classList.remove("hidden");
+      if (step1TotalBar) step1TotalBar.classList.remove("hidden");
+      if (step1FormFields) step1FormFields.classList.remove("hidden");
+      if (step1Actions) step1Actions.classList.remove("hidden");
+
+      if (qtyDisplay) qtyDisplay.textContent = "1";
       if (imgEl) {
         imgEl.src = product.imagen;
         imgEl.alt = product.nombre;
       }
-      if (badgeEl) {
-        badgeEl.textContent = product.material.toUpperCase();
-      }
-      if (categoryEl) categoryEl.textContent = product.categoria;
+      if (badgeEl) badgeEl.textContent = product.material.toUpperCase();
       if (titleEl) titleEl.textContent = product.nombre;
-      if (priceEl) priceEl.textContent = (product.precio * currentQty).toFixed(2);
 
       if (customBox) {
         if (product.es_personalizable) {
-          customBox.classList.remove('hidden');
+          customBox.classList.remove("hidden");
         } else {
-          customBox.classList.add('hidden');
+          customBox.classList.add("hidden");
         }
       }
 
-      if (modal) {
-        modal.classList.remove('opacity-0', 'pointer-events-none');
-        modal.classList.add('opacity-100', 'pointer-events-auto');
-        document.body.style.overflow = 'hidden';
-      }
+      setStep(1);
+      openModalView();
     };
 
-    function updateModalPrice() {
-      if (currentProduct && priceEl) {
-        priceEl.textContent = (currentProduct.precio * currentQty).toFixed(2);
+    window.openCartCheckoutModal = function () {
+      currentMode = "cart";
+      currentSingleProduct = null;
+
+      if (mainTitle) mainTitle.textContent = "MI BOLSA DE COMPRAS — SM JOYERÍA";
+      if (singleProductBox) singleProductBox.classList.add("hidden");
+      if (btnAddToCart) btnAddToCart.classList.add("hidden");
+      if (customBox) customBox.classList.add("hidden");
+
+      renderCartItems();
+      setStep(1);
+      openModalView();
+    };
+
+    function openModalView() {
+      if (inputOpNumber) inputOpNumber.value = "";
+      if (voucherEmptyState) voucherEmptyState.classList.remove("hidden");
+      if (voucherAttachedState) voucherAttachedState.classList.add("hidden");
+
+      if (modal) {
+        modal.classList.remove("opacity-0", "pointer-events-none");
+        modal.classList.add("opacity-100", "pointer-events-auto");
+        document.body.style.overflow = "hidden";
       }
     }
 
     function closeModal() {
       if (modal) {
-        modal.classList.add('opacity-0', 'pointer-events-none');
-        modal.classList.remove('opacity-100', 'pointer-events-auto');
-        document.body.style.overflow = '';
+        modal.classList.add("opacity-0", "pointer-events-none");
+        modal.classList.remove("opacity-100", "pointer-events-auto");
+        document.body.style.overflow = "";
       }
     }
 
-    if (btnClose) btnClose.addEventListener('click', closeModal);
+    if (btnClose) btnClose.addEventListener("click", closeModal);
+    if (btnFinishClose) btnFinishClose.addEventListener("click", closeModal);
+    if (btnExploreCatalog)
+      btnExploreCatalog.addEventListener("click", closeModal);
     if (modal) {
-      modal.addEventListener('click', (e) => {
+      modal.addEventListener("click", (e) => {
         if (e.target === modal) closeModal();
       });
     }
 
+    // Quantity for Single Product
     if (qtyMinus) {
-      qtyMinus.addEventListener('click', () => {
-        if (currentQty > 1) {
-          currentQty--;
-          qtyDisplay.textContent = currentQty;
-          updateModalPrice();
+      qtyMinus.addEventListener("click", () => {
+        if (currentSingleQty > 1) {
+          currentSingleQty--;
+          qtyDisplay.textContent = currentSingleQty;
+          updateTotalDisplays();
         }
       });
     }
 
     if (qtyPlus) {
-      qtyPlus.addEventListener('click', () => {
-        currentQty++;
-        qtyDisplay.textContent = currentQty;
-        updateModalPrice();
+      qtyPlus.addEventListener("click", () => {
+        currentSingleQty++;
+        qtyDisplay.textContent = currentSingleQty;
+        updateTotalDisplays();
       });
     }
 
-    // Direct WhatsApp Purchase with Name, DNI, Address
-    if (btnWaSubmit) {
-      btnWaSubmit.addEventListener('click', () => {
-        if (!currentProduct) return;
+    // Add to Cart from Modal
+    if (btnAddToCart) {
+      btnAddToCart.addEventListener("click", () => {
+        if (!currentSingleProduct) return;
+        const customNote = customInput ? customInput.value.trim() : "";
 
-        const name = inputName ? inputName.value.trim() : '';
-        const dni = inputDni ? inputDni.value.trim() : '';
-        const city = inputCity ? inputCity.value.trim() : '';
-        const address = inputAddress ? inputAddress.value.trim() : '';
-        const customNote = customInput ? customInput.value.trim() : '';
+        const idx = cartItems.findIndex(
+          (it) =>
+            it.id === currentSingleProduct.id && it.customNote === customNote,
+        );
 
-        if (!name || !dni || !address) {
-          if (formError) formError.classList.remove('hidden');
+        if (idx > -1) {
+          cartItems[idx].qty += currentSingleQty;
+        } else {
+          cartItems.push({
+            id: currentSingleProduct.id,
+            nombre: currentSingleProduct.nombre,
+            material: currentSingleProduct.material,
+            precio: currentSingleProduct.precio,
+            imagen: currentSingleProduct.imagen,
+            qty: currentSingleQty,
+            customNote,
+          });
+        }
+
+        saveCart();
+        closeModal();
+      });
+    }
+
+    // Step 1 -> Step 2 Validation
+    if (btnGoToStep2) {
+      btnGoToStep2.addEventListener("click", () => {
+        const name = inputName ? inputName.value.trim() : "";
+        const dni = inputDni ? inputDni.value.trim() : "";
+        const phone = inputPhone ? inputPhone.value.trim() : "";
+        const city = inputCity ? inputCity.value.trim() : "";
+        const address = inputAddress ? inputAddress.value.trim() : "";
+
+        if (!name || !dni || !phone || !address) {
+          if (step1Error) step1Error.classList.remove("hidden");
           return;
         }
 
-        if (formError) formError.classList.add('hidden');
-
-        const totalAmount = (currentProduct.precio * currentQty).toFixed(2);
-
-        let msg = `*NUEVA COMPRA - JOYERÍA BRIELLA*\n`;
-        msg += `------------------------------------\n`;
-        msg += `*Producto:* ${currentQty}x *${currentProduct.nombre}*\n`;
-        msg += `*Material:* ${currentProduct.material}\n`;
-        msg += `*Precio Total:* S/ ${totalAmount}\n`;
-        if (customNote) {
-          msg += `*Grabado/Detalle:* "${customNote}"\n`;
-        }
-        msg += `------------------------------------\n`;
-        msg += `*DATOS DE ENVÍO:*\n`;
-        msg += `• *Cliente:* ${name}\n`;
-        msg += `• *DNI/Doc:* ${dni}\n`;
-        msg += `• *Ciudad/Distrito:* ${city || 'Por coordinar'}\n`;
-        msg += `• *Dirección:* ${address}\n`;
-        msg += `• *Medio de Pago:* Yape / Plin / Transferencia\n\n`;
-        msg += `¡Hola Joyería Briella! Acabo de completar mis datos para comprar esta joya. ¿Me confirman el pago y fecha de entrega?`;
-
-        const waUrl = `https://wa.me/51923340617?text=${encodeURIComponent(msg)}`;
-        window.open(waUrl, '_blank');
-        closeModal();
+        if (step1Error) step1Error.classList.add("hidden");
+        setStep(2);
       });
     }
 
-    // Add to Cart
-    if (btnAdd) {
-      btnAdd.addEventListener('click', () => {
-        if (!currentProduct) return;
-        const customNote = customInput ? customInput.value.trim() : '';
-        if (window.BriellaCartClient) {
-          window.BriellaCartClient.addItem(currentProduct, currentQty, customNote);
-        }
-        closeModal();
+    // Step 2 -> Back to Step 1
+    if (btnBackToStep1) {
+      btnBackToStep1.addEventListener("click", () => setStep(1));
+    }
+
+    // Copy Yape/Plin number
+    if (btnCopyNumber) {
+      btnCopyNumber.addEventListener("click", () => {
+        navigator.clipboard
+          .writeText("984018633")
+          .then(() => {
+            if (copyBtnText) copyBtnText.textContent = "¡COPIADO!";
+            setTimeout(() => {
+              if (copyBtnText) copyBtnText.textContent = "COPIAR";
+            }, 2000);
+          })
+          .catch(() => {
+            if (copyBtnText) copyBtnText.textContent = "984018633";
+          });
       });
     }
 
-    // Bind triggers from product cards
-    document.querySelectorAll('.product-open-modal').forEach(trigger => {
-      trigger.addEventListener('click', (e) => {
+    // Demo Autocomplete Voucher
+    if (btnAutoFill) {
+      btnAutoFill.addEventListener("click", () => {
+        const randomOp = "DEMO-" + Math.floor(100000 + Math.random() * 900000);
+        if (inputOpNumber) inputOpNumber.value = randomOp;
+        if (voucherEmptyState) voucherEmptyState.classList.add("hidden");
+        if (voucherAttachedState) {
+          voucherAttachedState.classList.remove("hidden");
+          voucherAttachedState.classList.add("flex");
+        }
+        if (voucherFileName)
+          voucherFileName.textContent = `Voucher Simulado (${randomOp}.png)`;
+      });
+    }
+
+    // Voucher File Upload
+    if (voucherFileInput) {
+      voucherFileInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          if (voucherEmptyState) voucherEmptyState.classList.add("hidden");
+          if (voucherAttachedState) {
+            voucherAttachedState.classList.remove("hidden");
+            voucherAttachedState.classList.add("flex");
+          }
+          if (voucherFileName) voucherFileName.textContent = file.name;
+        }
+      });
+    }
+
+    // Step 2 -> Step 3 Validation & Finish
+    if (btnConfirmPayment) {
+      btnConfirmPayment.addEventListener("click", () => {
+        const opNum = inputOpNumber ? inputOpNumber.value.trim() : "";
+        const hasVoucherFile =
+          voucherFileInput && voucherFileInput.files.length > 0;
+        const isDemoBypass =
+          voucherFileName && voucherFileName.textContent.includes("Simulado");
+
+        if (!opNum && !hasVoucherFile && !isDemoBypass) {
+          if (step2Error) step2Error.classList.remove("hidden");
+          return;
+        }
+
+        if (step2Error) step2Error.classList.add("hidden");
+        setStep(3);
+      });
+    }
+
+    // Build WhatsApp message
+    function buildWhatsAppMessage() {
+      const name = inputName ? inputName.value.trim() : "";
+      const dni = inputDni ? inputDni.value.trim() : "";
+      const phone = inputPhone ? inputPhone.value.trim() : "";
+      const city = inputCity ? inputCity.value.trim() : "";
+      const address = inputAddress ? inputAddress.value.trim() : "";
+      const customNote = customInput ? customInput.value.trim() : "";
+      const opNum = inputOpNumber
+        ? inputOpNumber.value.trim()
+        : "Por verificar";
+      const totalAmount = calculateTotal();
+
+      let msg = `*NUEVO PEDIDO CONFIRMADO — SM JOYERÍA*\n`;
+      msg += `------------------------------------\n`;
+      msg += `*CÓDIGO DE PEDIDO:* \`${generatedOrderCode}\`\n`;
+      msg += `------------------------------------\n`;
+      msg += `*PRODUCTOS:*\n`;
+
+      if (currentMode === "single" && currentSingleProduct) {
+        msg += `• ${currentSingleQty}x *${currentSingleProduct.nombre}* (${currentSingleProduct.material}) - S/ ${(currentSingleProduct.precio * currentSingleQty).toFixed(2)}\n`;
+        if (customNote) msg += `  └ _Grabado: "${customNote}"_\n`;
+      } else {
+        cartItems.forEach((it) => {
+          msg += `• ${it.qty}x *${it.nombre}* (${it.material}) - S/ ${(it.precio * it.qty).toFixed(2)}\n`;
+          if (it.customNote) msg += `  └ _Grabado: "${it.customNote}"_\n`;
+        });
+      }
+
+      msg += `------------------------------------\n`;
+      msg += `*TOTAL PAGADO:* S/ ${totalAmount}\n`;
+      msg += `------------------------------------\n`;
+      msg += `*DATOS DE ENTREGA:*\n`;
+      msg += `• *Cliente:* ${name}\n`;
+      msg += `• *DNI/Doc:* ${dni}\n`;
+      msg += `• *Teléfono:* ${phone}\n`;
+      msg += `• *Ciudad/Distrito:* ${city || "Por coordinar"}\n`;
+      msg += `• *Dirección:* ${address}\n`;
+      msg += `------------------------------------\n`;
+      msg += `*MÉTODO DE PAGO:*\n`;
+      msg += `• *Medio:* Yape / Plin\n`;
+      msg += `• *Nro. de Operación:* \`${opNum}\`\n\n`;
+      msg += `¡Hola SM Joyería! Acabo de registrar mi compra en la web con el código *${generatedOrderCode}*. Adjunto mi comprobante para que puedan proceder con el despacho.`;
+
+      const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
+      if (btnSendWhatsApp) {
+        btnSendWhatsApp.href = waUrl;
+      }
+    }
+
+    // Expose Global Cart API
+    window.BriellaCartClient = {
+      addItem(product, qty = 1, customNote = "") {
+        const idx = cartItems.findIndex(
+          (it) => it.id === product.id && it.customNote === customNote,
+        );
+        if (idx > -1) {
+          cartItems[idx].qty += qty;
+        } else {
+          cartItems.push({
+            id: product.id,
+            nombre: product.nombre,
+            material: product.material,
+            precio: product.precio,
+            imagen: product.imagen,
+            qty,
+            customNote,
+          });
+        }
+        saveCart();
+      },
+      openCheckout() {
+        window.openCartCheckoutModal();
+      },
+    };
+
+    // Bind triggers from Header & Floating Bar Cart triggers
+    const headerCartBtn = document.getElementById("btnCartTrigger");
+    const mobileBarCartBtn = document.getElementById("btnMobileCartTrigger");
+
+    if (headerCartBtn) {
+      headerCartBtn.addEventListener("click", (e) => {
         e.preventDefault();
-        const card = trigger.closest('.product-card');
-        const jsonStr = card?.querySelector('.btn-buy-now')?.dataset.productJson;
+        window.openCartCheckoutModal();
+      });
+    }
+
+    if (mobileBarCartBtn) {
+      mobileBarCartBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.openCartCheckoutModal();
+      });
+    }
+
+    // Bind product card buttons
+    document.querySelectorAll(".product-open-modal").forEach((trigger) => {
+      trigger.addEventListener("click", (e) => {
+        e.preventDefault();
+        const card = trigger.closest(".product-card");
+        const jsonStr =
+          card?.querySelector(".btn-buy-now")?.dataset.productJson;
         if (jsonStr) {
           const product = JSON.parse(jsonStr);
           window.openProductModal(product);
@@ -303,5 +1512,18 @@
       });
     });
 
+    document.querySelectorAll(".btn-add-to-cart").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        const product = JSON.parse(btn.dataset.productJson || "{}");
+        if (product.id) {
+          window.BriellaCartClient.addItem(product, 1);
+        }
+      });
+    });
+
+    // Initialize cart from localStorage
+    loadCart();
   });
 </script>

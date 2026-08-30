@@ -25,19 +25,19 @@ const materials = [
     <!-- Dynamic Category & Section Header -->
     <div class="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
       <span class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-briella-blue block mb-1">
-        Colección Exclusiva
+        SM Joyería
       </span>
       <h2 id="catalogDynamicTitle" class="text-2xl sm:text-4xl md:text-5xl font-serif font-medium text-briella-charcoal mb-2 tracking-tight">
         Catálogo de Joyas
       </h2>
       <div class="w-12 h-0.5 bg-briella-blue/40 rounded-full mx-auto mb-3"></div>
       <p class="text-xs sm:text-sm text-briella-charcoal/70 px-4">
-        Plata Ley 950 auténtica y Oro 18k nacional. Pedidos directos con entrega a domicilio.
+        Plata Ley 950 auténtica y Oro 18k nacional. Diseños artesanales con envíos a todo el Perú.
       </p>
     </div>
 
-    <!-- Filter & Sort Control Bar (Modern Rounded Design matching Mobile Screenshot) -->
-    <div class="bg-white rounded-2xl sm:rounded-3xl border border-briella-cream-dark p-3 sm:p-5 mb-6 shadow-sm">
+    <!-- Filter & Sort Control Bar -->
+    <div class="bg-white rounded-2xl border border-briella-cream-dark p-3 sm:p-5 mb-6 shadow-xs">
       
       <!-- Desktop Search Bar -->
       <div class="relative max-w-md mx-auto mb-4 hidden md:block">
@@ -45,7 +45,7 @@ const materials = [
           type="text" 
           id="catalogSearchInput" 
           placeholder="Buscar aretes, collares, mariposa, cubana, oro 18k..." 
-          class="w-full bg-briella-cream text-xs py-2.5 pl-10 pr-4 rounded-full border border-briella-cream-dark focus:border-briella-blue focus:bg-white transition-all outline-none"
+          class="w-full bg-briella-cream text-xs py-2.5 pl-10 pr-4 rounded-xl border border-briella-cream-dark focus:border-briella-blue focus:bg-white transition-all outline-none"
         />
         <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-briella-charcoal/50 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <circle cx="11" cy="11" r="8"></circle>
@@ -53,14 +53,14 @@ const materials = [
         </svg>
       </div>
 
-      <!-- Mobile Control Bar (Exact Reference Layout: [FILTRAR] | MOSTRANDO 1-X DE Y | [⇅]) -->
+      <!-- Mobile Control Bar -->
       <div class="flex items-center justify-between gap-2 md:hidden">
         
         <!-- Filter Button -->
         <button 
           id="btnOpenMobileFilters" 
           type="button"
-          class="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-briella-cream-dark hover:border-briella-blue active:scale-95 text-xs font-bold uppercase tracking-wider text-briella-charcoal shadow-sm transition-all"
+          class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white border border-briella-cream-dark hover:border-briella-blue active:scale-95 text-xs font-bold uppercase tracking-wider text-briella-charcoal shadow-xs transition-all"
           aria-label="Abrir filtros de productos"
         >
           <svg class="w-4 h-4 stroke-[2]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -78,7 +78,7 @@ const materials = [
           <span id="mobileActiveFilterBadge" class="hidden w-2 h-2 rounded-full bg-briella-blue"></span>
         </button>
 
-        <!-- Center Counter Text (Mobile Screenshot Style) -->
+        <!-- Center Counter Text -->
         <div class="flex-1 text-center px-1">
           <span id="catalogMobileCounterText" class="text-[10px] font-bold uppercase tracking-wider text-briella-charcoal/70 block">
             Mostrando 1–{products.length} de {products.length}
@@ -91,7 +91,7 @@ const materials = [
           <button 
             id="btnOpenMobileSort" 
             type="button" 
-            class="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-briella-cream-dark hover:border-briella-blue active:scale-95 text-briella-charcoal shadow-sm transition-all"
+            class="w-9 h-9 flex items-center justify-center rounded-lg bg-white border border-briella-cream-dark hover:border-briella-blue active:scale-95 text-briella-charcoal shadow-xs transition-all"
             aria-label="Ordenar productos"
           >
             <svg class="w-4 h-4 stroke-[2]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -101,23 +101,23 @@ const materials = [
           </button>
 
           <!-- Mobile Sort Dropdown Popover -->
-          <div id="mobileSortDropdown" class="hidden absolute right-0 top-11 z-30 w-48 bg-white rounded-2xl border border-briella-cream-dark shadow-xl p-2 text-xs">
-            <button class="sort-option-btn w-full text-left py-2 px-3 rounded-xl font-medium text-briella-charcoal hover:bg-briella-cream" data-sort="default">Recomendados</button>
-            <button class="sort-option-btn w-full text-left py-2 px-3 rounded-xl font-medium text-briella-charcoal hover:bg-briella-cream" data-sort="price-asc">Precio: Menor a Mayor</button>
-            <button class="sort-option-btn w-full text-left py-2 px-3 rounded-xl font-medium text-briella-charcoal hover:bg-briella-cream" data-sort="price-desc">Precio: Mayor a Menor</button>
-            <button class="sort-option-btn w-full text-left py-2 px-3 rounded-xl font-medium text-briella-charcoal hover:bg-briella-cream" data-sort="name-asc">Nombre A - Z</button>
+          <div id="mobileSortDropdown" class="hidden absolute right-0 top-11 z-30 w-48 bg-white rounded-xl border border-briella-cream-dark shadow-xl p-2 text-xs">
+            <button class="sort-option-btn w-full text-left py-2 px-3 rounded-lg font-medium text-briella-charcoal hover:bg-briella-cream" data-sort="default">Recomendados</button>
+            <button class="sort-option-btn w-full text-left py-2 px-3 rounded-lg font-medium text-briella-charcoal hover:bg-briella-cream" data-sort="price-asc">Precio: Menor a Mayor</button>
+            <button class="sort-option-btn w-full text-left py-2 px-3 rounded-lg font-medium text-briella-charcoal hover:bg-briella-cream" data-sort="price-desc">Precio: Mayor a Menor</button>
+            <button class="sort-option-btn w-full text-left py-2 px-3 rounded-lg font-medium text-briella-charcoal hover:bg-briella-cream" data-sort="name-asc">Nombre A - Z</button>
           </div>
         </div>
 
       </div>
 
-      <!-- Desktop Filter Categories (Rounded Pill Chips) -->
-      <div class="hidden md:flex items-center justify-center gap-2 overflow-x-auto pb-2 no-scrollbar" id="categoryChips">
+      <!-- Desktop Filter Categories -->
+      <div class="hidden md:flex items-center justify-center gap-1.5 overflow-x-auto pb-2 no-scrollbar" id="categoryChips">
         {categories.map((cat, idx) => (
           <button 
-            class={`filter-category-btn px-5 py-2 text-xs font-bold uppercase tracking-wider rounded-full border transition-all whitespace-nowrap ${
+            class={`filter-category-btn px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg border transition-all whitespace-nowrap ${
               idx === 0 
-                ? 'active bg-briella-blue text-white border-briella-blue shadow-sm' 
+                ? 'active bg-briella-blue text-white border-briella-blue shadow-xs' 
                 : 'bg-briella-cream text-briella-charcoal/80 border-briella-cream-dark hover:border-briella-blue hover:bg-white'
             }`}
             data-category={cat.id}
@@ -127,15 +127,15 @@ const materials = [
         ))}
       </div>
 
-      <!-- Desktop Secondary Toolbar (Material Filters & Sorter) -->
+      <!-- Desktop Secondary Toolbar -->
       <div class="hidden md:flex flex-wrap items-center justify-between gap-4 pt-4 mt-3 border-t border-briella-cream-dark text-xs">
         
         <!-- Material Selectors -->
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5">
           <span class="text-[11px] font-bold uppercase tracking-wider text-briella-charcoal/60">Material:</span>
-          <button class="filter-material-btn active px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border border-briella-blue bg-briella-blue text-white transition-colors" data-material="todos">Todos</button>
-          <button class="filter-material-btn px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border border-briella-cream-dark bg-white text-briella-charcoal hover:border-briella-blue transition-colors" data-material="plata 950">Plata 950</button>
-          <button class="filter-material-btn px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border border-briella-cream-dark bg-white text-briella-charcoal hover:border-briella-gold hover:text-briella-gold-dark transition-colors" data-material="oro 18k">Oro 18k</button>
+          <button class="filter-material-btn active px-3 py-1 rounded-lg text-[11px] font-bold uppercase tracking-wider border border-briella-blue bg-briella-blue text-white transition-colors" data-material="todos">Todos</button>
+          <button class="filter-material-btn px-3 py-1 rounded-lg text-[11px] font-bold uppercase tracking-wider border border-briella-cream-dark bg-white text-briella-charcoal hover:border-briella-blue transition-colors" data-material="plata 950">Plata 950</button>
+          <button class="filter-material-btn px-3 py-1 rounded-lg text-[11px] font-bold uppercase tracking-wider border border-briella-cream-dark bg-white text-briella-charcoal hover:border-briella-gold hover:text-briella-gold-dark transition-colors" data-material="oro 18k">Oro 18k</button>
         </div>
 
         <!-- Counter & Desktop Sorter -->
@@ -145,7 +145,7 @@ const materials = [
           </span>
           <div class="flex items-center gap-1.5">
             <label for="catalogSorter" class="text-[11px] font-bold uppercase tracking-wider text-briella-charcoal/60">Ordenar:</label>
-            <select id="catalogSorter" class="bg-briella-cream text-xs py-1.5 px-3 rounded-xl border border-briella-cream-dark outline-none cursor-pointer">
+            <select id="catalogSorter" class="bg-briella-cream text-xs py-1.5 px-3 rounded-lg border border-briella-cream-dark outline-none cursor-pointer">
               <option value="default">Recomendados</option>
               <option value="price-asc">Precio: Menor a Mayor</option>
               <option value="price-desc">Precio: Mayor a Menor</option>
@@ -161,11 +161,11 @@ const materials = [
     <!-- Active Filter Tags Display (Mobile & Desktop) -->
     <div id="activeFilterTagsBar" class="hidden flex-wrap items-center gap-2 mb-4 px-1">
       <span class="text-[11px] text-briella-charcoal/60 font-bold uppercase tracking-wider">Filtros activos:</span>
-      <span id="tagCategoryPill" class="hidden items-center gap-1 px-3 py-1 rounded-full bg-briella-lavender text-briella-lavender-dark text-xs font-semibold">
+      <span id="tagCategoryPill" class="hidden items-center gap-1 px-2.5 py-1 rounded-lg bg-briella-lavender text-briella-lavender-dark text-xs font-semibold">
         <span id="tagCategoryLabel"></span>
         <button id="btnRemoveCatTag" class="hover:text-red-500 font-bold">&times;</button>
       </span>
-      <span id="tagMaterialPill" class="hidden items-center gap-1 px-3 py-1 rounded-full bg-briella-mint text-briella-mint-dark text-xs font-semibold">
+      <span id="tagMaterialPill" class="hidden items-center gap-1 px-2.5 py-1 rounded-lg bg-briella-mint text-briella-mint-dark text-xs font-semibold">
         <span id="tagMaterialLabel"></span>
         <button id="btnRemoveMatTag" class="hover:text-red-500 font-bold">&times;</button>
       </span>
@@ -180,15 +180,15 @@ const materials = [
     </div>
 
     <!-- Empty State -->
-    <div id="catalogEmptyState" class="hidden text-center py-12 sm:py-16 bg-white rounded-3xl border border-dashed border-briella-cream-dark p-6 sm:p-8">
-      <div class="w-14 h-14 rounded-full bg-briella-cream flex items-center justify-center mx-auto mb-3 text-briella-blue">
+    <div id="catalogEmptyState" class="hidden text-center py-12 sm:py-16 bg-white rounded-2xl border border-dashed border-briella-cream-dark p-6 sm:p-8">
+      <div class="w-14 h-14 rounded-2xl bg-briella-cream flex items-center justify-center mx-auto mb-3 text-briella-blue">
         <svg class="w-7 h-7 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
         </svg>
       </div>
       <h3 class="font-serif text-xl sm:text-2xl font-medium text-briella-charcoal mb-1">No se encontraron joyas</h3>
       <p class="text-xs text-briella-charcoal/60 max-w-sm mx-auto mb-5">Intenta con otro término o restablece los filtros para ver todo nuestro catálogo.</p>
-      <button id="btnResetFilters" class="px-6 py-2.5 bg-briella-blue hover:bg-briella-blue-dark text-white rounded-full text-xs font-bold uppercase tracking-wider transition-colors shadow-sm">
+      <button id="btnResetFilters" class="px-5 py-2.5 bg-briella-blue hover:bg-briella-blue-dark text-white rounded-lg text-xs font-bold uppercase tracking-wider transition-colors shadow-xs">
         Ver Todas las Joyas
       </button>
     </div>
@@ -198,7 +198,7 @@ const materials = [
 
 <!-- Mobile Filter Bottom Sheet / Modal (Slide-up Drawer) -->
 <div id="mobileFilterDrawerBackdrop" class="hidden fixed inset-0 z-50 bg-briella-charcoal/60 backdrop-blur-sm">
-  <div id="mobileFilterDrawerContent" class="fixed bottom-0 inset-x-0 bg-white rounded-t-3xl max-h-[85vh] overflow-y-auto p-5 pb-8 shadow-2xl flex flex-col justify-between sheet-slide-up">
+  <div id="mobileFilterDrawerContent" class="fixed bottom-0 inset-x-0 bg-white rounded-t-2xl max-h-[85vh] overflow-y-auto p-5 pb-8 shadow-2xl flex flex-col justify-between sheet-slide-up">
     
     <div>
       <!-- Drawer Header -->
@@ -214,7 +214,7 @@ const materials = [
           </svg>
           <h3 class="font-serif text-lg font-bold text-briella-charcoal">Filtros de Catálogo</h3>
         </div>
-        <button id="btnCloseMobileFilterDrawer" class="w-8 h-8 rounded-full bg-briella-cream flex items-center justify-center text-briella-charcoal hover:bg-briella-charcoal hover:text-white transition-colors" aria-label="Cerrar filtros">
+        <button id="btnCloseMobileFilterDrawer" class="w-8 h-8 rounded-lg bg-briella-cream flex items-center justify-center text-briella-charcoal hover:bg-briella-charcoal hover:text-white transition-colors" aria-label="Cerrar filtros">
           &times;
         </button>
       </div>
@@ -225,7 +225,7 @@ const materials = [
         <div class="grid grid-cols-2 gap-2">
           {categories.map((cat) => (
             <button 
-              class="mobile-filter-cat-btn py-2.5 px-3 rounded-xl border border-briella-cream-dark text-xs font-semibold text-briella-charcoal hover:border-briella-blue text-left flex items-center justify-between transition-colors"
+              class="mobile-filter-cat-btn py-2.5 px-3 rounded-lg border border-briella-cream-dark text-xs font-semibold text-briella-charcoal hover:border-briella-blue text-left flex items-center justify-between transition-colors"
               data-category={cat.id}
             >
               <span>{cat.name}</span>
@@ -241,7 +241,7 @@ const materials = [
         <div class="grid grid-cols-3 gap-2">
           {materials.map((mat) => (
             <button 
-              class="mobile-filter-mat-btn py-2 px-2.5 rounded-xl border border-briella-cream-dark text-[11px] font-semibold text-briella-charcoal text-center hover:border-briella-blue transition-colors"
+              class="mobile-filter-mat-btn py-2 px-2.5 rounded-lg border border-briella-cream-dark text-[11px] font-semibold text-briella-charcoal text-center hover:border-briella-blue transition-colors"
               data-material={mat.id}
             >
               {mat.name}
@@ -254,29 +254,21 @@ const materials = [
       <div class="mb-6">
         <h4 class="text-xs font-bold uppercase tracking-wider text-briella-charcoal mb-2.5">Ordenar Por</h4>
         <div class="grid grid-cols-2 gap-2">
-          <button class="mobile-filter-sort-btn py-2 px-3 rounded-xl border border-briella-cream-dark text-xs font-medium text-left hover:border-briella-blue active" data-sort="default">Recomendados</button>
-          <button class="mobile-filter-sort-btn py-2 px-3 rounded-xl border border-briella-cream-dark text-xs font-medium text-left hover:border-briella-blue" data-sort="price-asc">Menor Precio</button>
-          <button class="mobile-filter-sort-btn py-2 px-3 rounded-xl border border-briella-cream-dark text-xs font-medium text-left hover:border-briella-blue" data-sort="price-desc">Mayor Precio</button>
-          <button class="mobile-filter-sort-btn py-2 px-3 rounded-xl border border-briella-cream-dark text-xs font-medium text-left hover:border-briella-blue" data-sort="name-asc">Nombre A - Z</button>
+          <button class="mobile-filter-sort-btn py-2 px-3 rounded-lg border border-briella-cream-dark text-xs font-medium text-left hover:border-briella-blue active" data-sort="default">Recomendados</button>
+          <button class="mobile-filter-sort-btn py-2 px-3 rounded-lg border border-briella-cream-dark text-xs font-medium text-left hover:border-briella-blue" data-sort="price-asc">Menor Precio</button>
+          <button class="mobile-filter-sort-btn py-2 px-3 rounded-lg border border-briella-cream-dark text-xs font-medium text-left hover:border-briella-blue" data-sort="price-desc">Mayor Precio</button>
+          <button class="mobile-filter-sort-btn py-2 px-3 rounded-lg border border-briella-cream-dark text-xs font-medium text-left hover:border-briella-blue" data-sort="name-asc">Nombre A - Z</button>
         </div>
       </div>
 
     </div>
 
-    <!-- Actions Footer -->
-    <div class="grid grid-cols-2 gap-3 pt-3 border-t border-briella-cream-dark">
-      <button 
-        id="btnDrawerReset" 
-        type="button" 
-        class="py-3 px-4 rounded-2xl bg-briella-cream hover:bg-briella-cream-dark text-briella-charcoal text-xs font-bold uppercase tracking-wider text-center transition-colors"
-      >
-        Limpiar Filtros
+    <!-- Actions -->
+    <div class="flex items-center gap-3 pt-3 border-t border-briella-cream-dark">
+      <button id="btnResetMobileFilters" class="flex-1 py-3 px-4 rounded-lg bg-briella-cream text-briella-charcoal text-xs font-bold uppercase tracking-wider text-center hover:bg-briella-cream-dark transition-colors">
+        Limpiar
       </button>
-      <button 
-        id="btnDrawerApply" 
-        type="button" 
-        class="py-3 px-4 rounded-2xl bg-briella-blue hover:bg-briella-blue-dark text-white text-xs font-bold uppercase tracking-wider text-center shadow-md transition-colors"
-      >
+      <button id="btnApplyMobileFilters" class="flex-1 py-3 px-4 rounded-lg bg-briella-blue text-white text-xs font-bold uppercase tracking-wider text-center hover:bg-briella-blue-dark transition-colors shadow-xs">
         Aplicar Filtros
       </button>
     </div>

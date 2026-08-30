@@ -27,16 +27,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #F7F6F0;
+  background: #FAF8F5;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D8D3C5;
+  background: #D8D1DF;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4E5E97;
+  background: #9B68A8;
 }
 
 /* Toast container animation */

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 160" width="100%" height="100%">
+  <defs>
+    <!-- Brand Gradients -->
+    <linearGradient id="smDiamondGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C5A5CF" />
+      <stop offset="50%" stop-color="#BA91C7" />
+      <stop offset="100%" stop-color="#A874B6" />
+    </linearGradient>
+    <linearGradient id="smRoseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F2AEB3" />
+      <stop offset="100%" stop-color="#E8969B" />
+    </linearGradient>
+    <linearGradient id="smTextGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#9C68A9" />
+      <stop offset="50%" stop-color="#B282BE" />
+      <stop offset="100%" stop-color="#945F9F" />
+    </linearGradient>
+  </defs>
+
+  <!-- Diamond Icon Group centered at top -->
+  <g transform="translate(250, 42) scale(0.85)">
+    <!-- Diamond Outline Facets -->
+    <polygon points="0,-34 38,-10 30,22 0,38 -30,22 -38,-10" fill="none" stroke="url(#smDiamondGrad)" stroke-width="2.5" stroke-linejoin="round" />
+    <!-- Table & Star Facets -->
+    <line x1="-38" y1="-10" x2="38" y2="-10" stroke="url(#smDiamondGrad)" stroke-width="2" />
+    <line x1="-19" y1="-10" x2="0" y2="-34" stroke="url(#smDiamondGrad)" stroke-width="1.8" />
+    <line x1="19" y1="-10" x2="0" y2="-34" stroke="url(#smDiamondGrad)" stroke-width="1.8" />
+    <line x1="-19" y1="-10" x2="-30" y2="22" stroke="url(#smDiamondGrad)" stroke-width="1.8" />
+    <line x1="19" y1="-10" x2="30" y2="22" stroke="url(#smDiamondGrad)" stroke-width="1.8" />
+    <line x1="-19" y1="-10" x2="0" y2="38" stroke="url(#smDiamondGrad)" stroke-width="2" />
+    <line x1="19" y1="-10" x2="0" y2="38" stroke="url(#smDiamondGrad)" stroke-width="2" />
+    
+    <!-- Stylized Elegant 'S' monogram in center (Rose Gold) -->
+    <path d="M 10,-12 C 3,-19 -14,-15 -12,-3 C -10,9 14,3 14,15 C 14,26 -2,27 -11,20" 
+          fill="none" 
+          stroke="url(#smRoseGrad)" 
+          stroke-width="3" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+  </g>
+
+  <!-- Text Group: SM JOYERÍA -->
+  <!-- "SM" Part -->
+  <text x="135" y="132" 
+        font-family="'Playfair Display', 'Cormorant Garamond', Georgia, serif" 
+        font-size="44" 
+        font-weight="500" 
+        letter-spacing="4" 
+        fill="url(#smTextGrad)">SM</text>
+
+  <!-- "J" -->
+  <text x="215" y="132" 
+        font-family="'Playfair Display', 'Cormorant Garamond', Georgia, serif" 
+        font-size="44" 
+        font-weight="500" 
+        letter-spacing="4" 
+        fill="url(#smTextGrad)">J</text>
+
+  <!-- "O" with center sparkle -->
+  <g transform="translate(262, 118)">
+    <ellipse cx="0" cy="0" rx="14" ry="15" fill="none" stroke="url(#smTextGrad)" stroke-width="3.5" />
+    <!-- 4-point sparkle star in the center of 'O' -->
+    <path d="M 0,-7 Q 0,0 7,0 Q 0,0 0,7 Q 0,0 -7,0 Q 0,0 0,-7 Z" fill="url(#smRoseGrad)" />
+  </g>
+
+  <!-- "YERÍA" with accent -->
+  <text x="286" y="132" 
+        font-family="'Playfair Display', 'Cormorant Garamond', Georgia, serif" 
+        font-size="44" 
+        font-weight="500" 
+        letter-spacing="4" 
+        fill="url(#smTextGrad)">YERÍA</text>
+</svg>
